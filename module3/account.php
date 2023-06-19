@@ -33,7 +33,7 @@ include 'dbconnection.php';
         </div>
         <!-- user profile -->
         <div>
-            <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert<img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
+            <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
         </div>
     </div>
     <!-- </a> -->
@@ -77,6 +77,11 @@ include 'dbconnection.php';
                 $expert_socialAcc2 = $row['expert_socialAcc2'];
                 $expert_CV = $row['expert_CV'];
             } ?>
+            <div style="padding:5px 5px 5px 5px ;margin-left:255px;font-size:17px;color:white ;background-color:#5D0773;">
+                <b>My Publication</b> &nbsp;&nbsp;&nbsp;
+                <button style="width:60px;height:30;border:0;background-color:#D2B6D2;" type="submit"><b><a style="text-decoration:none;color:azure" href="editProfile.php?expert_id=<?php echo $Expert_ID; ?>">Edit Profile</a></b></button>
+            </div>
+            
             <div style="display: flex;">
                 <div style=" flex: 1;padding: 20px;">
                     <img src="image/woman.png" alt="" style="width: 200px;height:auto;margin-top:-200px;">
@@ -115,7 +120,12 @@ include 'dbconnection.php';
                         </div>
                     </div>
                 </div>
-                <a href="editProfile.php?expert_id=<?php echo $Expert_ID; ?>">Edit Profile</a>&nbsp;
+
+
+
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
