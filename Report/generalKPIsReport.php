@@ -363,8 +363,6 @@
 
         $engagementRate = $total_posts / $total_users * 100;
 
-        // Assuming you have already established a database connection
-
         // Get the june month and current year
         $targetMonth = '06'; //June
         $currentYear = date('Y');
