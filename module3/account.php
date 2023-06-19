@@ -33,7 +33,7 @@ include 'dbconnection.php';
         </div>
         <!-- user profile -->
         <div>
-            <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert abby<img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
+            <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert<img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
         </div>
     </div>
     <!-- </a> -->
@@ -44,13 +44,13 @@ include 'dbconnection.php';
     <!-- navigation bar (left side) -->
     <nav style="background-color:#F9DFFF; position:initial; top: 4; left: 0; height: 100vh; width: 255px; padding-top: 18px; padding-bottom: 30px;">
         <ul style="text-align: center; font-family: 'PT-serif', serif; font-size: 18px;">
-            <li><a class="nav-link" href="#">Home</a></li>
-            <li><a class="nav-link active " href="M3_account.php">Account Profile</a></li>
+            <li><a class="nav-link" href="home.php">Home</a></li>
+            <li><a class="nav-link active " href="account.php">Account Profile</a></li>
             <li><a class="nav-link " href="notification.php">Notifications</a></li>
             <li><a class="nav-link" href="publication.php">Discussion Board</a></li>
-            <li><a class="nav-link" href="M3_analytics.php">Analytics</a></li>
+            <li><a class="nav-link" href="calTotal.php">Analytics</a></li>
             <br><br>
-            <li><a class="nav-link" href="login.php">Log Out</a></li>
+            <li><a class="nav-link" href="#">Log Out</a></li>
         </ul>
     </nav>
     <!-- content -->
