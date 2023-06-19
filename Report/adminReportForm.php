@@ -388,19 +388,23 @@
                         </div>
                         <div class="col-sm-6">
                             <label for="inputName5" class="form-label">Report Type</label>
-                            <input type="text" class="form-control" name="report_type">
+                            <input type="text" class="form-control" name="report_type" required>
                         </div>
                         <div class="col-12">
                             <label for="inputName4" class="form-label">Report Description</label>
-                            <input type="text" class="form-control" name="report_description" placeholder="des">
+                            <input type="text" class="form-control" name="report_description" placeholder="des" required>
                         </div>
                         <div class="col-12">
                             <label for="inputName4" class="form-label">Report Solution</label>
-                            <input type="text" class="form-control" name="report_solution">
+                            <input type="text" class="form-control" name="report_solution" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="inputNumber" class="form-label">File Upload</label>
+                            <input class="form-control" type="file" id="formFile">
                         </div>
                         <div class="col-sm-6">
                             <label for="inputName5" class="form-label">Report Status</label>
-                            <select class="form-select" name="report_status" aria-label="Default select example">
+                            <select class="form-select" name="report_status" aria-label="Default select example" required>
                                 <option selected>Select...</option>
                                 <option value="In Investigation">In Investigation</option>
                                 <option value="Resolved">Resolved</option>

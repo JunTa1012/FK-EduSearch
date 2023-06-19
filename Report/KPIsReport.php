@@ -342,9 +342,55 @@
     </ul>
 
   </aside><!-- End Sidebar-->
+  <script>
+    function selectMonth(month) {
+      // You can use the selected month value here to update the charts
+      // For example, you can update the start and end dates based on the selected month
+      // and then fetch the relevant data and update the charts using AJAX
+
+      console.log("Selected month: " + month);
+      // Perform necessary actions here based on the selected month
+    }
+  </script>
 
   <main id="main" class="main">
+    <?php
+    include("connection.php");
 
+    $query = "SELECT COUNT(*) AS total_users FROM user";
+    $result = mysqli_query($db, $query) or die("Query failed: " . mysqli_error($db));
+
+    $result && mysqli_num_rows($result);
+    $row = mysqli_fetch_assoc($result);
+    $total_users = $row["total_users"];
+
+    $query = "SELECT COUNT(*) AS total_posts FROM post";
+    $result = mysqli_query($db, $query) or die("Query failed: " . mysqli_error($db));
+
+    $result && mysqli_num_rows($result);
+    $row = mysqli_fetch_assoc($result);
+    $total_posts = $row["total_posts"];
+
+    $engagementRate = $total_posts / $total_users * 100;
+
+    // Get the june month and current year
+    $targetMonth = '06'; //June
+    $currentYear = date('Y');
+
+    // Construct the start and end dates of the month
+    $startDate = $currentYear . '-' . $targetMonth . '-01';
+    $endDate = $currentYear . '-' . $targetMonth . '-30';
+
+    // Query to count the active users within the specified month
+    $query = "SELECT COUNT(*) AS active_users FROM user WHERE user_LastLogin BETWEEN '$startDate' AND '$endDate'";
+    $result = mysqli_query($db, $query);
+
+    $result && mysqli_num_rows($result);
+    $row = mysqli_fetch_assoc($result);
+    $activeUsersCount = $row['active_users'];
+
+    $retentionRate = $activeUsersCount / $total_users * 100;
+    ?>
     <div class="pagetitle">
       <h1>Key performance indicators (KPIs) Reports</h1>
       <nav>
@@ -370,11 +416,23 @@
           </select>
         </div>
         <div class="col-md-2">
-          <select id="inputState" class="form-select">
+          <select id="inputState" class="form-select" onchange="selectMonth(this.value)">
             <option selected>Month</option>
-            <option>...</option>
+            <option value="01">January</option>
+            <option value="02">February</option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
           </select>
         </div>
+
       </div>
       <br>
 
@@ -389,8 +447,9 @@
 
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
+                  const engagementRate = <?php echo $engagementRate; ?>;
                   new ApexCharts(document.querySelector("#donutChart"), {
-                    series: [70, 30],
+                    series: [engagementRate, 100 - engagementRate],
                     chart: {
                       height: 350,
                       type: 'donut',
@@ -398,7 +457,7 @@
                         show: true
                       }
                     },
-                    labels: ['Posts rate', 'Inactive users'],
+                    labels: ['Posts rate', 'Inactive'],
                   }).render();
                 });
               </script>
@@ -417,8 +476,10 @@
 
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
+                  const activeUsersCount = <?php echo $activeUsersCount; ?>;
+                  const total_users = <?php echo $total_users; ?>;
                   new ApexCharts(document.querySelector("#pieChart"), {
-                    series: [4, 1],
+                    series: [activeUsersCount, total_users - activeUsersCount],
                     chart: {
                       height: 350,
                       type: 'pie',
@@ -435,7 +496,7 @@
             </div>
           </div>
         </div>
-
+      </div>
     </section>
 
   </main><!-- End #main -->
