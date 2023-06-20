@@ -7,7 +7,7 @@
     <title>FK-EduSearch | Knowledge Sharing System</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
     <!-- external stylesheet -->
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/module5.css">
 </head>
 
 <body>
