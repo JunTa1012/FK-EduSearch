@@ -1,6 +1,6 @@
 <?php
 // session_start();
-include("connect-database.php");
+include("./link/connect-database.php");
 // $expert_ID = $_SESSION['Expert_ID'];
 ?>
 
@@ -62,7 +62,7 @@ include("connect-database.php");
   <div id="content-wrapper">
 
     <div id="main-content">
-      <div style="padding:15px 10px 10px 10px ;font-size:17px;color:white ;background-color:#5D0773;">
+      <div style="padding:0px 10px 10px 10px ;font-size:17px;color:white ;background-color:#5D0773;">
         <b>Report Total Publication</b> &nbsp;&nbsp;&nbsp;
       </div>
 
@@ -128,10 +128,10 @@ include("connect-database.php");
       }
     });
 
+    
+
     var qrcode = new QRCode(document.getElementById("QRCode"), {
-      text: "<?php foreach ($sum_assoc as $month => $sum) {
-                echo $month . ' : RM ' . $sum . '\r\n';
-              } ?>",
+      text: "<?php foreach ($sum_assoc as $month => $sum) {echo $month . ' : ' . $sum . '\r\n';} ?>",
       width: 128,
       height: 128,
       colorDark: "#6C5A8A",

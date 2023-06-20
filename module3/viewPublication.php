@@ -1,8 +1,10 @@
 <?php
 // Database connection settings
-include 'dbconnection.php';
-
+include './link/dbconnection.php';
+session_start();
 // Check if a publication ID is provided
+$expertid = 1;
+$sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS u ON pl.Expert_ID = e.Exprt_ID WHERE pl.Expert_ID = $expertid";
 if (isset($_GET['publication_id'])) {
   $publicationId = $_GET['publication_id'];
   // Retrieve the publication details from the database

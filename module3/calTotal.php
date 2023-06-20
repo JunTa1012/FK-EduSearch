@@ -1,25 +1,29 @@
-<!DOCTYPE html>
 <?php
-// session_start();
 // Database connection settings
-// $expert_ID = $_SESSION['Expert_ID'];
-include("connect-database.php");
+include './link/dbconnection.php';
+session_start();
+$expertid = 1;
+$sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.Expert_ID WHERE pl.Expert_ID = $expertid";
+$result = $conn->query($sql);
+$rows = mysqli_num_rows($result);
+$row = mysqli_fetch_assoc($result);
+$expert_name = $row['expert_name'];
 ?>
 
+
+<!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FK-EduSearch | Knowledge Sharing System</title>
-
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
   <!-- external stylesheet -->
   <link rel="stylesheet" href="style/style.css">
-  <link rel="stylesheet" href="style/calTotal.css">
   <!-- icon library | font awesome -->
   <script src="https://kit.fontawesome.com/06b2bd9377.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
-  <script src="./js/main.js"></script>
 </head>
 
 <body>
@@ -35,13 +39,8 @@ include("connect-database.php");
     </div>
     <!-- user profile -->
     <div>
-      <!-- <a class="icon-link" href="#"> -->
-      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
-
-
-        <!-- </a> -->
+      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"> </p>
     </div>
-
   </div>
 
   <!-- navigation bar (left side) -->
@@ -57,183 +56,189 @@ include("connect-database.php");
     </ul>
   </nav>
 
+  <!-- content -->
+  <p style="padding-left:5px;padding-top:10px;padding-bottom:10px;font-size:20px;margin-left:255px;color:black;margin-top: -550px;"><b>Calculate total publication</b></p><br>
+  <hr style="margin-left:255px;">
 
+  <div class="form-container">
+    <div style="margin-left:260px;margin-top:10px;width:1900px;">
+      <div class="content">
+        <div style="margin-bottom: 12px; ">
+          <label for="filter-date">Search the category:</label>
+          <select id="filter-date" class="btn btn-default" style="background-color:#EFE7F0;color:#4C0A5C;">
+            <option value="all">All publications</option>
+            <option value="month">Month</option>
+            <option value="week">Week</option>
+            <option value="day">Day</option>
+          </select>
+          <button type="button" class="btn btn-default" style="float: right;background-color:#D2B6D2;" onclick="window.location.href='calReport.php'">Generate Month Report</button>
+        </div>
+        <!-- table -->
+        <table id="publicationTableAll" style="background-color:#F7F0F9;width:100%;">
+          <thead>
+            <tr>
+              <th style="background-color:#5A0068;color:white;">Date</th>
+              <th style="background-color:#5A0068;color:white;">Publication Type</th>
+              <th style="background-color:#5A0068;color:white;">Number of Publications</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $sql = "SELECT SUM(Total_Publication) AS Total FROM (SELECT COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY Publication_ID) AS subquery";
+            $result = $conn->query($sql);
+            $row = mysqli_fetch_assoc($result);
+            $totalPublication = $row['Total'];
+            $sql = "SELECT publication_date, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY Publication_ID ORDER BY publication_date ASC";
+            $result = $conn->query($sql);
 
-  <!-- main content (right side) -->
-  <div id="content-wrapper">
+            
 
-    <div id="main-content">
-      <div style="padding:15px 10px 10px 10px ;font-size:17px;color:white ;background-color:#5D0773;">
-        <b>Calculate Total Publication</b> &nbsp;&nbsp;&nbsp;
+              $query = "SELECT MONTHNAME(publication_date) AS month, count(Publication_ID) AS sum FROM publication_list GROUP BY MONTH(publication_date)";
+              $result = mysqli_query($conn, $query);
+              $num_row = mysqli_num_rows($result);
+              $month = array();
+              $sum = array();
+              for ($i = 0; $i < $num_row; $i++) {
+                while ($row = mysqli_fetch_array($result, 1)) {
+                  array_push($month, $row['month']);
+                  array_push($sum, $row['sum']);
+                }
+              }
+            while ($row = mysqli_fetch_assoc($result)) {
+              $date = $row['publication_date'];
+              $publication_type = $row['publication_type'];
+              $totalPublication = $row['Total_Publication'];
+
+            ?>
+              <tr data-date="<?php echo $date; ?>">
+                <td><?php echo $date; ?></td>
+                <td><?php echo $publication_type; ?></td>
+                <td><?php echo $totalPublication; ?></td>
+              </tr>
+            <?php } ?>
+            <tr>
+              <td style=" text-align: center; ;width: 70%;" colspan="2"><b>Total Publication</b></td>
+              <td><?php echo $totalPublication; ?></td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="publicationTableDay">
+          <thead>
+            <tr>
+              <th style="width: 20%">Day</th>
+              <th style="width: 50%">Publication Type</th>
+              <th style="width: 30%">Number of Publications</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php       
+            $sql = "SELECT DAYNAME(publication_date) AS hari, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY DAYNAME(publication_date), publication_type ORDER BY publication_date DESC";
+            $result = $conn->query($sql);
+           
+            while ($row = mysqli_fetch_assoc($result)) {
+              $date = $row['hari'];
+              $publication_type = $row['publication_type'];
+              $totalPublication = $row['Total_Publication'];
+            ?>
+              <tr >
+                <td><?php echo $date; ?></td>
+                <td><?php echo $publication_type; ?></td>
+                <td><?php echo $totalPublication; ?></td>
+              </tr>
+            <?php } ?>          
+          </tbody>
+        </table>
+        <table id="publicationTableWeek">
+          <thead>
+            <tr>
+              <th style="width: 20%">Week</th>
+              <th style="width: 50%">Publication Type</th>
+              <th style="width: 30%">Number of Publications</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            // Get the total number of Publications
+            $sql = "SELECT WEEK(publication_date) AS minggu, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY WEEK(publication_date), publication_type";
+            $result = $conn->query($sql);
+           
+            while ($row = mysqli_fetch_assoc($result)) {
+              $date = $row['minggu'];
+              $publication_type = $row['publication_type'];
+              $totalPublication = $row['Total_Publication'];
+            ?>
+              <tr data-date="<?php echo $date; ?>">
+                <td><?php echo $date; ?></td>
+                <td><?php echo $publication_type; ?></td>
+                <td><?php echo $totalPublication; ?></td>
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+        <table id="publicationTableMonth">
+          <thead>
+            <tr>
+              <th style="width: 20%">Month</th>
+              <th style="width: 50%">Publication Type</th>
+              <th style="width: 30%">Number of Publications</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            // Get the total number of Publications
+            $sql = "SELECT MONTHNAME(publication_date) AS bulan, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY MONTHNAME(publication_date), publication_type ORDER BY publication_date ASC";
+            $result = $conn->query($sql);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+              $date = $row['bulan'];
+              $publication_type = $row['publication_type'];
+              $totalPublication = $row['Total_Publication'];
+            ?>
+              <tr data-date="<?php echo $date; ?>">
+                <td><?php echo $date; ?></td>
+                <td><?php echo $publication_type; ?></td>
+                <td><?php echo $totalPublication; ?></td>
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
       </div>
-
-      <div class="button-section">
-        <div class="calculate-button">
-          <form method="POST" action="set-date.php">
-            <select name="month" class="month-selection">
-              <option value="select-month">SELECT MONTH</option>
-              <option value="Jan" class="option">January</option>
-              <option value="Feb" class="option">February</option>
-              <option value="March" class="option">March</option>
-              <option value="Apr" class="option">April</option>
-              <option value="May" class="option">May</option>
-              <option value="June" class="option">June</option>
-              <option value="July" class="option">July</option>
-              <option value="Aug" class="option">August</option>
-              <option value="Sep" class="option">September</option>
-              <option value="Oct" class="option">October</option>
-              <option value="Nov" class="option">November</option>
-              <option value="Dec" class="option">December</option>
-            </select>
-            <select name="week" class="week-selection">
-              <option value="select-week">SELECT WEEK</option>
-              <option value="Week 1" class="option">Week 1</option>
-              <option value="Week 2" class="option">Week 2</option>
-              <option value="Week 3" class="option">Week 3</option>
-              <option value="Week 4" class="option">Week 4</option>
-              <option value="Week 5" class="option">Week 5</option>
-            </select>
-            <button type="submit" name="calculate">Calculate</button>
-          </form>
-        </div>
-        <a href="calReport.php"><button class="generate-report">Total Expenses Of Each Month</button></a>
-      </div>
-
-
-      <div class="output">
-        <div class="header">
-          <h4 class="title">Topic</h4>
-          <h4 class="date">Date</h4>
-        </div>
-
-        <br />
-        <hr />
-        <br />
-        <div class="content">
-
-          <?php
-          if (isset($_SESSION['start-date']) && isset($_SESSION['end-date'])) {
-            $startDate = $_SESSION['start-date'];
-            $endDate = $_SESSION['end-date'];
-
-            $query = "SELECT publication_topic, publication_date, Publication_ID FROM publication_list WHERE  publication_date BETWEEN '$startDate' AND '$endDate' ";
-            $result = mysqli_query($conn, $query);
-
-            while ($row = mysqli_fetch_array($result, 1)) {
-          ?>
-              <div class="row">
-                <p class="title"><?php echo $row['publication_topic'] ?></p>
-                <p class="date"><?php echo $row['publication_date'] ?></p>
-              </div>
-          <?php }
-          } ?>
-
-
-        </div>
-
-        <hr />
-
-        <div class="average-expenses">
-          <h4>Total publications</h4>
-          <?php
-          if (isset($_SESSION['start-date']) && isset($_SESSION['end-date'])) {
-            $query = "SELECT Publication_ID FROM publication_list ORDER BY Publication_ID";
-            $query_run =  mysqli_query($con, $query);
-            $row1 = mysqli_num_rows($query_run);
-
-            $result = $row1;
-            echo '<h1 style="text-align:center">'  . $result . '</h1>';
-          ?>
-
-            <?php echo '<h1 style="text-align:center">'  . $result . '</h1>' ?>
-        </div>
-      </div>
-
-    <?php } ?>
     </div>
   </div>
+  </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Hide all tables initially except the 'All' table
+    $('#publicationTableDay').hide();
+    $('#publicationTableWeek').hide();
+    $('#publicationTableMonth').hide();
+
+    $('#filter-date').change(function() {
+      var selectedValue = $(this).val();
+
+      // Hide all tables
+      $('#publicationTableAll').hide();
+      $('#publicationTableDay').hide();
+      $('#publicationTableWeek').hide();
+      $('#publicationTableMonth').hide();
+
+      // Show the table based on the selected value
+      if (selectedValue === 'all') {
+        $('#publicationTableAll').show();
+      } else if (selectedValue === 'day') {
+        $('#publicationTableDay').show();
+      } else if (selectedValue === 'week') {
+        $('#publicationTableWeek').show();
+      } else if (selectedValue === 'month') {
+        $('#publicationTableMonth').show();
+      }
+    });
+
+    $('#filter-date').trigger('change');
+  });
+</script>
 
 </html>
-
-<!-- content -->
-<!-- <div style="margin-left:300px;margin-top: -450px;background-color:white;min-height: fit-content;">Edit Profile</div> -->
-<!-- <p style="padding-left:5px;padding-top:5px;font-size:20px;margin-left:255px;color:black;margin-top: -550px;"><b>Calculate Publication</b> </p><br> -->
-<!-- <p style="color:aliceblue;background-color: #B681C1;margin-top: -600px;"><b>My Profile</b></p> -->
-<!-- <div style="padding:15px 5px 5px 5px ;margin-left:255px;font-size:17px;color:white ;background-color:#5D0773;margin-top: -540px;">
-  <b>Calculate Total Publication</b> &nbsp;&nbsp;&nbsp;
-</div>
-
-<div class="form-container">
-  <div style="margin-left:260px;margin-top:10px">
-
-    <div style=" display: flex;justify-content: space-between;">
-      <div style="  box-shadow: 2px 2px 12px 4px rgb(191, 190, 190);border-radius: 10px; border: none;  background-color: var(--primary-bg); margin-bottom: 10px; width: 150px; height: 50px; margin: 10px;  color: white;"> 
-      <form method="POST" action="set-date.php">
-        <div>
-          <span> <select name="month" style="width:170px;margin-top:5%; border:none;background-color:#F3DDF4; padding:5px 5px 5px 5px;" value="select-month">SELECT MONTH</option>
-              <option value="Jan" style="background-color:aliceblue;text-align: left;">January</option>
-              <option value="Feb" style="background-color:aliceblue;text-align: left;">February</option>
-              <option value="March" style="background-color:aliceblue;text-align: left;">March</option>
-              <option value="Apr" style="background-color:aliceblue;text-align: left;">April</option>
-              <option value="May" style="background-color:aliceblue;text-align: left;">May</option>
-              <option value="June" style="background-color:aliceblue;text-align: left;">June</option>
-              <option value="July" style="background-color:aliceblue;text-align: left;">July</option>
-              <option value="Aug" style="background-color:aliceblue;text-align: left;">August</option>
-              <option value="Sep" style="background-color:aliceblue;text-align: left;">September</option>
-              <option value="Oct" style="background-color:aliceblue;text-align: left;">October</option>
-              <option value="Nov" style="background-color:aliceblue;text-align: left;">November</option>
-              <option value="Dec" style="background-color:aliceblue;text-align: left;">December</option>
-            </select></span>
-          <span><select name="week" style="width:170px;margin-top:5%; border:none;background-color:#F3DDF4; padding:5px 5px 5px 5px;">
-              <option value="select-week">SELECT WEEK</option>
-              <option value="Week 1" style="background-color:aliceblue;text-align: left;">Week 1</option>
-              <option value="Week 2" style="background-color:aliceblue;text-align: left;">Week 2</option>
-              <option value="Week 3" style="background-color:aliceblue;text-align: left;">Week 3</option>
-              <option value="Week 4" style="background-color:aliceblue;text-align: left;">Week 4</option>
-              <option value="Week 5" style="background-color:aliceblue;text-align: left;">Week 5</option>
-            </select></span>
-          <span> <button style="width:150px;  border:none;background-color:#D2B6D2; padding:5px 5px 5px 5px;" type="submit" name="calculate">Calculate</button></span>
-        </div>
-      </form>
-    </div>
-
-  </div>
-  <a href="calReport.php"><button style=" width:250px; margin-top:20%;margin-left:200%;border:none;color:white;background-color:#634694; padding:5px 5px 5px 5px;">Total Expenses Of Each Month</button></a>
-</div>
-</div>
-<div style=" display: flex;justify-content: space-between;margin-left:260px;margin-top:30px">
-  <table style="color:black;">
-    <tr>
-      <th style="background-color:#F6F7CE;">Title</th>
-      <th style="background-color:#F6F7CE;">Date</th>
-      <th style="background-color:#F6F7CE;">Publications</th>
-    </tr>
-    <tr>
-      <td>Title 2</td>
-      <td>June 11, 2023</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <td>
-        
-      </td>
-    </tr>
-
-    <tr>
-      <th style="background-color:#D9D9D9;">Total Publications:</th>
-      <td>
-
-      </td>
-    </tr>
-  </table>
-</div>
-
-
-
-
-</div>
-</div>
-</body>
-
-</html> -->

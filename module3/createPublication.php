@@ -1,10 +1,8 @@
 <?php
-include 'dbconnection.php';
-
+include './link/dbconnection.php';
 date_default_timezone_set('Asia/Kuala_Lumpur');
 $publicationDate = date('Y-m-d'); // Get the current date
 
-// session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Get form data
@@ -13,11 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $publicationType = mysqli_real_escape_string($conn, $_POST['publicationType']);
   $publicationDescription = mysqli_real_escape_string($conn, $_POST['publicationDescription']);
   $publicationContent = mysqli_real_escape_string($conn, $_POST['publicationContent']);
-  $userid = "1";
+  $expertid = "1";
   $adminid = "1";
-
-  $sql = "INSERT INTO publication_list ( publication_date, publication_topic, publication_author, publication_type, publication_description, publication_content, User_ID, Admin_ID)
-                VALUES ('$publicationDate', '$publicationTopic', '$publicationAuthor', '$publicationType','$publicationDescription', '$publicationContent', '$userid', '$adminid')";
+  $sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.expert_ID WHERE pl.Expert_ID = $expertid";
+  $sql = "INSERT INTO publication_list ( publication_date, publication_topic, publication_author, publication_type, publication_description, publication_content, Expert_ID, Admin_ID)
+                VALUES ('$publicationDate', '$publicationTopic', '$publicationAuthor', '$publicationType','$publicationDescription', '$publicationContent', '$expertid', '$adminid')";
 
   if ($conn->query($sql) === TRUE) {
     header("Location: publication.php");
@@ -31,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

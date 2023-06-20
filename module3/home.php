@@ -2,7 +2,15 @@
 // Database connection settings
 include 'dbconnection.php';
 session_start();
+
+session_start();
+include("./link/dbconnection.php");
 include '../module1/sessionExpert.php';
+// $_SESSION['expert_ID']=1;
+if (isset($_SESSION['ERROR_MSG'])) {
+  echo '<script>alert("' . $_SESSION['ERROR_MSG'] . '")</script>';
+  $_SESSION['ERROR_MSG'] = null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +27,6 @@ include '../module1/sessionExpert.php';
   <!-- external stylesheet -->
   <link rel="stylesheet" href="style/account.css">
   <!-- <link rel="stylesheet" href="style/profile.css"> -->
-
 
 </head>
 

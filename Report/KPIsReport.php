@@ -400,7 +400,6 @@
       $engagementRate = NULL;
     }
 
-
     $targetMonth = '06'; // Default month: June
 
     if (isset($_POST['month'])) {
@@ -424,19 +423,7 @@
       <form method="POST">
         <label for="inputState" class="form-label">Sorted By:</label>
         <div class="row">
-          <div class="col-md-2">
-            <select id="inputState" class="form-select">
-              <option selected>Day</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div class="col-md-2">
-            <select id="inputState" class="form-select">
-              <option selected>Week</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div class="col-md-2">
+          <div class="col-md-4">
             <select id="inputState" class="form-select" name="month">
               <option selected>Month</option>
               <option value="01">January</option>
@@ -453,19 +440,51 @@
               <option value="12">December</option>
             </select>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <button type="submit" class="btn btn-primary">Change Month</button>
           </div>
         </div>
       </form>
+      <br>
       <div>
-        <?php
-        echo "Total Users: " . $total_users . "<br>";
-        echo "Total Posts: " . $total_posts . "<br>";
-        echo "Engagement Rate: " . $engagementRate . "<br>";
-        echo "Active Users Count: " . $activeUsersCount . "<br>";
-        echo "Retention Rate: " . $retentionRate . "<br>";
-        ?>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Users <span> | Selected month</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3" style="color: red;">
+                    <h3><?php echo $total_users ?></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Active Users <span> | Selected month</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3" style="color: green;">
+                    <h3><?php echo $activeUsersCount ?></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Posts <span> | Selected month</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3" style="color: blue;">
+                    <h3><?php echo $total_posts ?></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-lg-6">
@@ -484,7 +503,7 @@
                     var donutChartDiv = document.getElementById("donutChart");
 
                     var paragraph = document.createElement("p");
-                    paragraph.textContent = "The engagementRate is null";
+                    paragraph.innerHTML = "The Engagement Rate is NULL.<br>Due to empty number of users, posts or both.";
 
                     donutChartDiv.appendChild(paragraph);
                   } else {
@@ -528,6 +547,7 @@
                         show: true
                       }
                     },
+                    labels: ['Active users', 'Inactive users'],
                   }).render();
                 });
               </script>

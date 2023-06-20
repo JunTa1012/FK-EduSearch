@@ -1,6 +1,8 @@
 <?php
-include 'dbconnection.php';
-// session_start();
+session_start();
+// Database connection settings
+include './link/dbconnection.php';
+
 // Check if a Expert_ID is provided
 if (isset($_GET['expert_id'])) {
   $expertID = $_GET['expert_id'];
@@ -15,7 +17,6 @@ if (isset($_GET['expert_id'])) {
     // $Expert_ID = $row['Expert_ID'];
     $expert_name = $row['expert_name'];
     $expert_email = $row['expert_email'];
-    $expert_profile = $row['expert_profile'];
     $expert_password = $row['expert_password'];
     $expert_phoneNum = $row['expert_phoneNum'];
     $expert_researchArea1 = $row['expert_researchArea1'];
@@ -112,7 +113,7 @@ $conn->close();
 
   <!-- content -->
   <!-- <div style="margin-left:300px;margin-top: -450px;background-color:white;min-height: fit-content;">Edit Profile</div> -->
-  <p style="padding-left:5px;padding-top:5px;font-size:20px;margin-left:255px;color:black;margin-top: -700px;"><b>Edit Profile</b> </p><br>
+  <p style="padding-left:5px;padding-top:5px;font-size:20px;margin-left:255px;color:black;margin-top: -550px;"><b>Edit Profile</b> </p><br>
   <!-- <p style="color:aliceblue;background-color: #B681C1;margin-top: -600px;"><b>My Profile</b></p> -->
   <form action="editProfile.php?expert_id=<?php echo $expertID; ?>" method="POST">
     <table style="color:#5D0773;padding-left:5px;padding-top:5px;margin-left:255px;">
@@ -165,7 +166,8 @@ $conn->close();
         <tr>
           <th>CV</th>
           <td> <input style="color:#5D0773;margin-left:1px;padding-top:2px;border: none;" name="file" type="file" />
-          <button type="submit" name="submit">Add</button></td>
+            <button type="submit" name="submit">Add</button>
+          </td>
         </tr>
       </form>
       <tr>
