@@ -378,6 +378,35 @@
                             echo "Error creating database $sql." . mysqli_error($db);
                         }
                         mysqli_close($db);
+
+                        //upload file
+                        $file = $_FILES['report_file'];
+
+                        $fileName = $_FILES['report_file']['name'];
+                        $fileTmpName = $_FILES['report_file']['tmp_name'];
+                        $fileSize = $_FILES['report_file']['size'];
+                        $fileError = $_FILES['report_file']['error'];
+                        $fileType = $_FILES['report_file']['type'];
+
+                        $fileExt = explode('.', $fileName);
+                        $fileActualExt = strtolower(end($fileExt));
+
+                        $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+
+                        if (in_array($fileActualExt, $allowed)) {
+                            if ($fileError === 0) {
+                                if ($fileSize < 1000000) {
+                                    $fileNameNew = uniqid('', true).".".$fileActualExt;
+                                    $fileDestination = '../Report/Uploads'.$fileNameNew;
+                                    move_uploaded_file($fileTmpName, $fileDestination);
+                                    header("Location: adminReportList.php");
+                                } else {
+                                    echo "Your file is too big!";
+                                }
+                            }
+                        } else {
+                            echo "You cannot uoload this file type!";
+                        }
                     }
                     ?>
                     <!-- Report Form -->
@@ -400,7 +429,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label for="inputNumber" class="form-label">File Upload</label>
-                            <input class="form-control" type="file" id="formFile">
+                            <input class="form-control" type="file" name="report_file">
                         </div>
                         <div class="col-sm-6">
                             <label for="inputName5" class="form-label">Report Status</label>
