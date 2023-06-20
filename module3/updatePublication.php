@@ -82,14 +82,14 @@ $conn->close();
 
   <!-- navigation bar (left side) -->
   <nav style=" background-color:#F9DFFF;display: flex;flex-direction: column;justify-content: space-between;height: 100%;width: 255px;padding-top:18px;padding-bottom: 30px;">
-    <ul style="text-align:center;font-family: 'PT-serif' , serif;font-size:18px">
-      <li><a class="nav-link" href="#">Home</a></li>
-      <li><a class="nav-link" href="M3_account.php">Account Profile</a></li>
-      <li><a class="nav-link" href="M3_notification.php">Notifications</a></li>
-      <li><a class="nav-link  active" href="M3_discussionBoard.php">Discussion Board</a></li>
-      <li><a class="nav-link" href="M3_analytics.php">Analytics</a></li>
+    <ul style="text-align: center; font-family: 'PT-serif', serif; font-size: 18px;">
+      <li><a class="nav-link" href="home.php">Home</a></li>
+      <li><a class="nav-link  " href="account.php">Account Profile</a></li>
+      <li><a class="nav-link " href="notification.php">Notifications</a></li>
+      <li><a class="nav-link active" href="publication.php">Discussion Board</a></li>
+      <li><a class="nav-link" href="calTotal.php">Analytics</a></li>
       <br><br>
-      <li><a class="nav-link" href="login.php">Log Out</a></li>
+      <li><a class="nav-link" href="#">Log Out</a></li>
     </ul>
   </nav>
 
