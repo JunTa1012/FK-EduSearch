@@ -47,14 +47,13 @@
     </ul>
   </nav>
   <!-- content -->
-  <div class="form-container" style="color:black;">
-    <div style="margin-left:260px;margin-top:-500px;">
-      <div>
-        <h4>WELCOME TO FK-EDUSEARCH</h4>
-      </div>
+  <div style="margin-top:-700px;padding:5px 5px 5px 5px ;margin-left:255px;">
+
+    <div style=" flex: 1;padding: 30px 30px 30px 30px;margin-left:0px;background-color:#EFE7F0;height:500px;">
+      <h1 style="color:#9021AC;text-align:center;margin-top:120px;">Welcome To FK-EduSearch</h1>
+      <h4 style="color:#9021AC;text-align:center;margin-top:100px;">You cannot teach people everthing they need to know but FK-EduSearch can help them to find what they need to know when they need to know it</h4>
     </div>
   </div>
-
 </body>
 
 </html>
