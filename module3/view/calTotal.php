@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 // session_start();
 // Database connection settings
@@ -5,7 +6,6 @@
 include("connect-database.php");
 ?>
 
-<!DOCTYPE html>
 <html>
 
 <head>

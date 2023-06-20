@@ -15,6 +15,12 @@ include 'dbconnection.php';
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
   <!-- external stylesheet -->
   <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style/report.css">
+  <!-- javascript -->
+  <script src="scripts/RestaurantOwner.js" charset="utf-8"></script>
+  <script src="scripts/MenuList.js" charset="utf-8"></script>
+  <!-- icon library | font awesome -->
+  <script src="https://kit.fontawesome.com/06b2bd9377.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
