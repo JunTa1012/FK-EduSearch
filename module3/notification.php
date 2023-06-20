@@ -15,6 +15,12 @@ include 'dbconnection.php';
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
   <!-- external stylesheet -->
   <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style/report.css">
+  <!-- javascript -->
+  <script src="scripts/RestaurantOwner.js" charset="utf-8"></script>
+  <script src="scripts/MenuList.js" charset="utf-8"></script>
+  <!-- icon library | font awesome -->
+  <script src="https://kit.fontawesome.com/06b2bd9377.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -41,14 +47,14 @@ include 'dbconnection.php';
 
   <!-- navigation bar (left side) -->
   <nav style=" background-color:#F9DFFF;display: flex;flex-direction: column;justify-content: space-between;height: 100%;width: 255px;padding-top:18px;padding-bottom: 30px;">
-    <ul style="text-align:center;font-family: 'PT-serif' , serif;font-size:18px">
-      <li><a class="nav-link" href="#">Home</a></li>
-      <li><a class="nav-link" href="account.php">Account Profile</a></li>
-      <li><a class="nav-link active" href="notification.php">Notifications</a></li>
+    <ul style="text-align: center; font-family: 'PT-serif', serif; font-size: 18px;">
+      <li><a class="nav-link" href="home.php">Home</a></li>
+      <li><a class="nav-link " href="account.php">Account Profile</a></li>
+      <li><a class="nav-link  active" href="notification.php">Notifications</a></li>
       <li><a class="nav-link" href="publication.php">Discussion Board</a></li>
       <li><a class="nav-link" href="calTotal.php">Analytics</a></li>
       <br><br>
-      <li><a class="nav-link" href="login.php">Log Out</a></li>
+      <li><a class="nav-link" href="#">Log Out</a></li>
     </ul>
   </nav>
 
@@ -63,10 +69,10 @@ include 'dbconnection.php';
       <table>
         <thead>
           <tr>
-            <th style="width: 30%;">Question</th>
-            <th style="width: 10%;">Status</th>
-            <th style="width: 45%;">Expert Answer </th>
-            <th style="width: 40% ;padding-left:45px;">Actions</th>
+            <th style="width: 30%;background-color:#F9DFFF;">Question</th>
+            <th style="width: 10%;background-color:#F9DFFF;">Status</th>
+            <th style="width: 45%;background-color:#F9DFFF;">Expert Answer </th>
+            <th style="width: 40% ;padding-left:45px;background-color:#F9DFFF;">Actions</th>
           </tr>
         </thead>
         <tbody>
