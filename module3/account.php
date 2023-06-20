@@ -114,7 +114,7 @@ include 'dbconnection.php';
                             <h2 style="font-size: 20px;margin-bottom: 10px;margin-left:20px;">Current Academic Status</h2>
                             <p style="margin-left:20px;"><strong>Education:</strong> <?php echo $expert_academicStatus; ?></p>
                             <br>
-                            <p style="margin-left:20px;"><a href="CV.pdf">Download CV</a></p>
+                            <p style="margin-left:20px;"><a href="CV/CV.pdf">Download CV</a></p>
                             <br>
                         </div>
                     </span>
