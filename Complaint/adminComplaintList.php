@@ -285,7 +285,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="adminComplaintList.php">
+        <a class="nav-link collapsed" href="../Complaint/adminComplaintList.php">
           <i class="bi bi-grid"></i>
           <span>Complaint Menu</span>
         </a>
