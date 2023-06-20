@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 if(!empty($_SESSION["id"])){
-  header("Location: ExpertHomepage.php");
+  header("Location: ../module3/home.php");
 }
 if(isset($_POST["submit"])){
   $username = $_POST["expert_name"];
@@ -12,7 +12,7 @@ if(isset($_POST["submit"])){
     if($password === $row['expert_password']){
       $_SESSION["login"] = true;
       $_SESSION["id"] = $row["Expert_ID"];
-      header("Location: TestExpert.php");
+      header("Location: ../module3/home.php");
     }
     else{
       echo

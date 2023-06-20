@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 if(!empty($_SESSION["id"])){
-  header("Location: ../Complaint/UserComplaint.php");
+  header("Location: ../Complaint/UserAccountProfile.php");
 }
 if(isset($_POST["submit"])){
   $username = $_POST["username"];
@@ -12,7 +12,7 @@ if(isset($_POST["submit"])){
     if($password === $row['user_password']){
       $_SESSION["login"] = true;
       $_SESSION["id"] = $row["User_ID"];
-      header("Location: ../Complaint/UserComplaint.php");
+      header("Location: ../User/UserAccountProfile.php");
     }
     else{
       echo
