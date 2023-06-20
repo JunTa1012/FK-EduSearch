@@ -16,7 +16,7 @@
   }
   body {
     
-    background-color: white;
+    background-color: blue;
   }
 
 /*
