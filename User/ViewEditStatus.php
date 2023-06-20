@@ -179,9 +179,8 @@
                     background-color: lightpink;
                     text-align: left;
                 }
-
-                []{
-                    
+                
+                tr{
                     background-color: lightgreen;
                 }
                 

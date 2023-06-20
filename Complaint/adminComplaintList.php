@@ -1,3 +1,9 @@
+<?php
+include("dbconnection.php");
+session_start();
+include_once '../module1/sessionAdmin.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -343,7 +349,6 @@
 
   <main id="main" class="main">
     <?php
-    include("dbconnection.php");
 
     $query = "SELECT COUNT(*) AS totalComplaint FROM complaint_list";
     $result = mysqli_query($conn, $query) or die("Query failed: " . mysqli_error($conn));

@@ -1,3 +1,9 @@
+<?php
+include("dbconnection.php");
+session_start();
+include_once '../module1/sessionAdmin.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -354,7 +360,6 @@
         </div><!-- End Page Title -->
 
         <?php
-        include("dbconnection.php");
 
         if (isset($_GET['complaint_id'])) {
             $complaintID = $_GET['complaint_id'];

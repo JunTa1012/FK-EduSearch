@@ -2,6 +2,8 @@
 // Database connection settings
 include 'dbconnection.php';
 session_start();
+include '../module1/sessionUser.php';
+
     // Number of complaints to display per page
     $complaintsPerPage = 8;
     $userid = 1;
