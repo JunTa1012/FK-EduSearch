@@ -114,7 +114,7 @@ $conn->close();
 
   <!-- content -->
   <!-- <div style="margin-left:300px;margin-top: -450px;background-color:white;min-height: fit-content;">Edit Profile</div> -->
-  <p style="padding-left:5px;padding-top:5px;font-size:20px;margin-left:255px;color:black;margin-top: -550px;"><b>Edit Profile</b> </p><br>
+  <p style="padding-left:5px;padding-top:5px;font-size:20px;margin-left:255px;color:black;margin-top: -580px;"><b>Edit Profile</b> </p><br>
   <!-- <p style="color:aliceblue;background-color: #B681C1;margin-top: -600px;"><b>My Profile</b></p> -->
   <form action="editProfile.php?expert_id=<?php echo $expertID; ?>" method="POST">
     <table style="color:#5D0773;padding-left:5px;padding-top:5px;margin-left:255px;">
