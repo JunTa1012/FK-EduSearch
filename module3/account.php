@@ -3,6 +3,25 @@ session_start();
 // Database connection settings
 include 'dbconnection.php';
 
+            $sql = "SELECT * FROM expert";
+            $result = $conn->query($sql);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $Expert_ID = $row['Expert_ID'];
+                $expert_name = $row['expert_name'];
+                $expert_email = $row['expert_email'];
+                $expert_profile = $row['expert_profile'];
+                $expert_password = $row['expert_password'];
+                $expert_phoneNum = $row['expert_phoneNum'];
+                $expert_researchArea1 = $row['expert_researchArea1'];
+                $expert_researchArea2 = $row['expert_researchArea2'];
+                $expert_researchArea3 = $row['expert_researchArea3'];
+                $expert_academicStatus = $row['expert_academicStatus'];
+                $expert_socialAcc1 = $row['expert_socialAcc1'];
+                $expert_socialAcc2 = $row['expert_socialAcc2'];
+                $expert_CV = $row['expert_CV'];
+            }
+
 ?>
 
 <!DOCTYPE html>
@@ -55,73 +74,52 @@ include 'dbconnection.php';
     </nav>
     <!-- content -->
 
-
+    <div style="margin-top:-700px;padding:5px 5px 5px 5px ;margin-left:255px;font-size:17px;color:white ;background-color:#5D0773;">
+        <b>My Profile</b> &nbsp;&nbsp;&nbsp;
+        <button style="border:0;padding:2px 5px 5px 5px;"><b><a style="text-decoration:none;color:black;" href="editProfile.php?expert_id=<?php echo $Expert_ID; ?>">Edit Profile</a></b></button>
+    </div>
     <div class="form-container" style="color:black;">
-        <div style="margin-left:260px;margin-top:-500px;">
-            <?php
-            $sql = "SELECT * FROM expert";
-            $result = $conn->query($sql);
 
-            while ($row = mysqli_fetch_assoc($result)) {
-                $Expert_ID = $row['Expert_ID'];
-                $expert_name = $row['expert_name'];
-                $expert_email = $row['expert_email'];
-                $expert_profile = $row['expert_profile'];
-                $expert_password = $row['expert_password'];
-                $expert_phoneNum = $row['expert_phoneNum'];
-                $expert_researchArea1 = $row['expert_researchArea1'];
-                $expert_researchArea2 = $row['expert_researchArea2'];
-                $expert_researchArea3 = $row['expert_researchArea3'];
-                $expert_academicStatus = $row['expert_academicStatus'];
-                $expert_socialAcc1 = $row['expert_socialAcc1'];
-                $expert_socialAcc2 = $row['expert_socialAcc2'];
-                $expert_CV = $row['expert_CV'];
-            } ?>
-            <div style="padding:5px 5px 5px 5px ;margin-left:255px;font-size:17px;color:white ;background-color:#5D0773;">
-                <b>My Publication</b> &nbsp;&nbsp;&nbsp;
-                <button style="width:60px;height:30;border:0;background-color:#D2B6D2;" type="submit"><b><a style="text-decoration:none;color:azure" href="editProfile.php?expert_id=<?php echo $Expert_ID; ?>">Edit Profile</a></b></button>
-            </div>
+        <div style="margin-left:260px;">
             
-            <div style="display: flex;">
-                <div style=" flex: 1;padding: 20px;">
-                    <img src="image/woman.png" alt="" style="width: 200px;height:auto;margin-top:-200px;">
 
-                </div>
-                <div style="margin-top: -180px;"><br><br>
+
+            <div>
+
+                <div style="margin-left:3px;">
                     <span>
-                        <h2 style="font-size: 20px;margin-bottom: 10px; ">Personal Info</h2>
-                        <p><strong>Name:</strong> <?php echo $expert_name; ?></p>
-                        <p><strong>Email:</strong> <?php echo $expert_email; ?></p>
-                        <p><strong>Phone:</strong> <?php echo $expert_phoneNum; ?></p>
-                        <p><strong>Social Media:</strong>
-                            <li><img class="image" src="image/facebook.png" alt="fb"> <span id="facebook"><a style="text-decoration:none" href="https://www.facebook.com/login/"><?php echo $expert_socialAcc1; ?></a></span></li>
-                            <li><img class="image" src="image/instagram.png" alt="ig"> <span id="instagram"><a style="text-decoration:none" href="https://www.instagram.com/"><?php echo $expert_socialAcc2; ?></a></span></li>
-                        </p>
-                    </span>
-                </div>
 
-                <div class="form-container">
-                    <div style="margin-left:260px;margin-top:10px">
-
-                        <div style=" flex: 1;padding: 20px;">
-                            <h2 style="font-size: 20px;margin-bottom: 10px;">Research Areas</h2>
-                            <ul style="list-style-type: disc;">
+                        <div style=" flex: 1;padding: 30px;margin-left:0px;background-color:#EFE7F0;">
+                            <img src="image/woman.png" alt="" style="width: 100px;">
+                            <h2 style="font-size: 20px;margin-bottom: 10px;">Personal Info</h2>
+                            <p><strong>Name:</strong> <?php echo $expert_name; ?></p>
+                            <p><strong>Email:</strong> <?php echo $expert_email; ?></p>
+                            <p><strong>Phone:</strong> <?php echo $expert_phoneNum; ?></p>
+                            <p><strong>Social Media:</strong>
+                                <li><img class="image" src="image/facebook.png" alt="fb"> <span id="facebook"><a style="text-decoration:none" href="https://www.facebook.com/login/"><?php echo $expert_socialAcc1; ?></a></span></li>
+                                <li><img class="image" src="image/instagram.png" alt="ig"> <span id="instagram"><a style="text-decoration:none" href="https://www.instagram.com/"><?php echo $expert_socialAcc2; ?></a></span></li>
+                            </p>
+                        </div>
+                        <div style=" flex: 1;padding: 10px; background-color:#E1D1E4;">
+                            <h2 style="font-size: 20px;margin-left: 20px;">Research Areas</h2>
+                            <ul style="list-style-type: disc;margin-left:35px;">
                                 <li><?php echo $expert_researchArea1; ?></li>
                                 <li><?php echo $expert_researchArea2; ?></li>
                                 <li><?php echo $expert_researchArea3; ?></li>
                             </ul>
                             <br>
-                            <p><a href="CV.pdf">Download CV</a></p>
                         </div>
-                        <hr>
-                        <div style=" flex: 1;padding: 20px;">
-                            <h2 style="font-size: 20px;margin-bottom: 10px;">Current Academic Status</h2>
-                            <p><strong>Education:</strong> <?php echo $expert_academicStatus; ?></p>
+
+                        <div style=" flex: 1;padding: 10px;background-color:#F5CFFA;">
+                            <h2 style="font-size: 20px;margin-bottom: 10px;margin-left:20px;">Current Academic Status</h2>
+                            <p style="margin-left:20px;"><strong>Education:</strong> <?php echo $expert_academicStatus; ?></p>
+                            <br>
+                            <p style="margin-left:20px;"><a href="CV.pdf">Download CV</a></p>
+                            <br>
                         </div>
-                    </div>
+                    </span>
+
                 </div>
-
-
 
             </div>
         </div>

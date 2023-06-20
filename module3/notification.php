@@ -63,10 +63,10 @@ include 'dbconnection.php';
       <table>
         <thead>
           <tr>
-            <th style="width: 30%;">Question</th>
-            <th style="width: 10%;">Status</th>
-            <th style="width: 45%;">Expert Answer </th>
-            <th style="width: 40% ;padding-left:45px;">Actions</th>
+            <th style="width: 30%;background-color:#F9DFFF;">Question</th>
+            <th style="width: 10%;background-color:#F9DFFF;">Status</th>
+            <th style="width: 45%;background-color:#F9DFFF;">Expert Answer </th>
+            <th style="width: 40% ;padding-left:45px;background-color:#F9DFFF;">Actions</th>
           </tr>
         </thead>
         <tbody>
