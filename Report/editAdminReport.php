@@ -360,7 +360,7 @@
             $reportID = $_GET['R_ID'];
 
             // Retrieve the report data
-            $selectQuery = "SELECT R_ID, report_type, report_description, report_solution, report_status FROM report WHERE R_ID = $reportID";
+            $selectQuery = "SELECT R_ID, report_type, report_description, report_solution, report_status FROM admin_report_list WHERE R_ID = $reportID";
             $result = mysqli_query($db, $selectQuery);
 
             if ($result && mysqli_num_rows($result) > 0) {
@@ -380,7 +380,7 @@
             $report_status = $_POST["report_status"];
 
             // Update the report
-            $updateQuery = "UPDATE report SET report_type = '$report_type', report_description = '$report_description', report_solution = '$report_solution', report_status = '$report_status' WHERE R_ID = $reportID";
+            $updateQuery = "UPDATE admin_report_list SET report_type = '$report_type', report_description = '$report_description', report_solution = '$report_solution', report_status = '$report_status' WHERE R_ID = $reportID";
 
             if (mysqli_query($db, $updateQuery)) {
                 $message = "Report updated successfully.";
