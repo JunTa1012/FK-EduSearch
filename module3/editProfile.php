@@ -1,7 +1,8 @@
 <?php
 session_start();
 // Database connection settings
-include './link/dbconnection.php';
+include("link/dbconnection.php");
+include '../module1/sessionExpert.php';
 
 // Check if a Expert_ID is provided
 if (isset($_GET['expert_id'])) {
@@ -107,7 +108,7 @@ $conn->close();
       <li><a class="nav-link" href="publication.php">Discussion Board</a></li>
       <li><a class="nav-link" href="calTotal.php">Analytics</a></li>
       <br><br>
-      <li><a class="nav-link" href="#">Log Out</a></li>
+      <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
     </ul>
   </nav>
 

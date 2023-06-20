@@ -1,7 +1,8 @@
 <?php
-// session_start();
-include("./link/connect-database.php");
-// $expert_ID = $_SESSION['Expert_ID'];
+session_start();
+// Database connection settings
+include("link/dbconnection.php");
+include '../module1/sessionExpert.php';
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +55,7 @@ include("./link/connect-database.php");
       <li><a class="nav-link" href="publication.php">Discussion Board</a></li>
       <li><a class="nav-link active " href="calTotal.php">Analytics</a></li>
       <br><br>
-      <li><a class="nav-link" href="#">Log Out</a></li>
+      <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
     </ul>
   </nav>
 
