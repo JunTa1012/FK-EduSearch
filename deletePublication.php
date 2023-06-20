@@ -14,6 +14,7 @@ if ($conn->query($sql) === TRUE) {
   header("Location: publication.php");
 } else {
   echo "Error: " . $sql . "<br>";
+  echo "P"
 }
 
 
