@@ -229,7 +229,7 @@ input[type=button]{
                 <li><a class="nav-link" href="../User/UserHomepage.php">Home</a></li>
                 <li><a class="nav-link active" href="../User/UserAccountProfile.php">Account Profile</a></li>
                 <li><a class="nav-link" href="../User/DiscussionBoard.php">Discussion Board</a></li>
-                <li><a class="nav-link" href="../User/UserComplaint.php">Complaint</a></li>
+                <li><a class="nav-link" href="../Complaint/UserComplaint.php">Complaint</a></li>
                 <li><a class="nav-link" href="../User/TotalPost.php">Total Post</a></li>
                 <li><a class="nav-link" href="../User/PostReport.php">Post Report</a></li>
                 <li><a class="nav-link" href="../login.php">Log Out</a></li>
