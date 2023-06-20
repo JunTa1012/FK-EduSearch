@@ -50,7 +50,7 @@
     <title>FK-EduSearch | Knowledge Sharing System</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
     <!-- External stylesheet -->
-    <link rel="stylesheet" href="style/module5.css">
+    <link rel="stylesheet" href="../assets/css/module5.css">
 </head>
 <body>
     <!-- Title bar -->

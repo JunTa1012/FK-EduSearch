@@ -43,7 +43,7 @@ $conn->close();
     <title>FK-EduSearch | Knowledge Sharing System</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
     <!-- external stylesheet -->
-    <link rel="stylesheet" href="style/module5.css">
+    <link rel="stylesheet" href="../assets/css/module5.css">
 </head>
 
 <body>
@@ -129,7 +129,7 @@ $conn->close();
         </section>
     </div>
 </body>
-<script src="tinymce/js/tinymce/tinymce.min.js" ></script>
+<script src="../assets/vendor/tinymce/tinymce.min.js " ></script>
 <script>
     tinymce.init({
       selector: '#description',

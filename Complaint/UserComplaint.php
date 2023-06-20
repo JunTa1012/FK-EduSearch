@@ -36,7 +36,7 @@ session_start();
     <title>FK-EduSearch | Knowledge Sharing System</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
     <!-- external stylesheet -->
-    <link rel="stylesheet" href="style/module5.css">
+    <link rel="stylesheet" href="../assets/css/module5.css">
 </head>
 <body>
     <!-- title bar -->
@@ -193,6 +193,6 @@ session_start();
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="style/module5.js"></script>
+<script src="../assets/js/module5.js"></script>
 </html>
 

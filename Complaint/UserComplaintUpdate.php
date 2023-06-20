@@ -63,7 +63,7 @@ $conn->close();
     <title>FK-EduSearch | Knowledge Sharing System</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
     <!-- external stylesheet -->
-    <link rel="stylesheet" href="style/module5.css">
+    <link rel="stylesheet" href="../assets/css/module5.css">
 </head>
 
 <body>
@@ -123,7 +123,7 @@ $conn->close();
                             <label for="date">Date: <?php echo $date; ?></label><br>
                             <label for="time">Time: <?php echo $time; ?></label>
                         </div>
-                        <form action="updatecomplaintpage.php?complaint_id=<?php echo $complaintId; ?>" method="POST" onsubmit="return validateForm()">
+                        <form action="UserComplaintUpdate.php?complaint_id=<?php echo $complaintId; ?>" method="POST" onsubmit="return validateForm()">
                         <div class="form-group">
                             <label for="complainttype">Type of Complaints</label>
                             <select id="complainttype" class="form-control custom-select" name="complainttype" required>
@@ -152,7 +152,7 @@ $conn->close();
         </section>
     </div>
 </body>
-<script src="tinymce/js/tinymce/tinymce.min.js" ></script>
+<script src="../assets/vendor/tinymce/tinymce.min.js" ></script>
 <script>
     tinymce.init({
       selector: 'textarea',
