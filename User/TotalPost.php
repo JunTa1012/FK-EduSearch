@@ -1,3 +1,8 @@
+<?php
+include("../dbconnect.php");
+session_start();
+include_once '../module1/sessionAdmin.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -200,7 +205,7 @@
                 <li><a class="nav-link" href="../Complaint/UserComplaint.php">Complaint</a></li>
                 <li><a class="nav-link active" href="../User/TotalPost.php">Total Post</a></li>
                 <li><a class="nav-link" href="../User/PostReport.php">Post Report</a></li>
-                <li><a class="nav-link" href="../login.php">Log Out</a></li>
+                <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
             </ul>
         </nav>
             </div>

@@ -2,6 +2,8 @@
 // Database connection settings
 include 'dbconnection.php';
 session_start();
+include_once '../module1/sessionUser.php';
+
 $userid = 1;
 $sql = "SELECT cl.*, u.user_name FROM complaint_list AS cl JOIN user AS u ON cl.User_ID = u.user_ID WHERE cl.User_ID = $userid";
 $result = $conn->query($sql);
@@ -53,7 +55,7 @@ $username = $row['user_name'];
                 <li><a class="nav-link active" href="UserComplaint.php">Complaint</a></li>
                 <li><a class="nav-link" href="../User/TotalPost.php">Total Post</a></li>
                 <li><a class="nav-link" href="../User/PostReport.php">Post Report</a></li>
-                <li><a class="nav-link" href="../login.php">Log Out</a></li>
+                <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
             </ul>
         </nav>
         <!-- content -->

@@ -52,7 +52,7 @@ $expert_name = $row['expert_name'];
       <li><a class="nav-link" href="publication.php">Discussion Board</a></li>
       <li><a class="nav-link active " href="calTotal.php">Analytics</a></li>
       <br><br>
-      <li><a class="nav-link" href="#">Log Out</a></li>
+      <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
     </ul>
   </nav>
 
