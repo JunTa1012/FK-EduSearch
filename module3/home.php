@@ -1,7 +1,4 @@
 <?php
-// Database connection settings
-include 'dbconnection.php';
-session_start();
 
 session_start();
 include("./link/dbconnection.php");
