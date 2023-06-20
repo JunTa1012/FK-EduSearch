@@ -97,18 +97,16 @@
                     <h2>Complaint Report</h2> 
                 </div>
             </div>
-
             <div class="table-wrapper">
                 <div class="report">
-                    
-                        <canvas id="chart" class="chart"></canvas>
+                    <canvas id="chart" class="chart"></canvas>
                     <div class="QRCode-section">
                         <button type="button" class="btn btn-block btn-default" onclick="window.location.href='UserComplaintCalculate.php'">Go Back</button>
                         <br>
                         <div class="QR-background">
                             <div id="QRCode"></div>
                         </div>
-                        <h4>Scan QR Code to view on phone in table form.</h4>
+                        <h4>Scan QR Code to view on phone.</h4>
                         <br><br><br><br>
                         <button type="button" class="btn btn-block btn-default" onclick="downloadReport()">Download Report</button>
                     </div>

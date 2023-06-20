@@ -553,6 +553,10 @@ button, input, optgroup, select, textarea {
 
 
 .QRCode-section {
+  background-color: #CBD8FA;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   grid-column-start: 10;
   column-span: 2;
 }
