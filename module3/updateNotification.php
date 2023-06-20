@@ -1,5 +1,8 @@
 <?php
-include './link/dbconnection.php';
+session_start();
+// Database connection settings
+include("link/dbconnection.php");
+include '../module1/sessionExpert.php';
 
 // Check if a post ID is provided
 if (isset($_GET['post_id'])) {

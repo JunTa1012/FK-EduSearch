@@ -1,5 +1,8 @@
 <?php
-include './link/dbconnection.php';
+session_start();
+// Database connection settings
+include("link/dbconnection.php");
+include '../module1/sessionExpert.php';
 date_default_timezone_set('Asia/Kuala_Lumpur');
 $publicationDate = date('Y-m-d'); // Get the current date
 

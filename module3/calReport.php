@@ -1,7 +1,8 @@
 <?php
-// session_start();
-include("./link/connect-database.php");
-// $expert_ID = $_SESSION['Expert_ID'];
+session_start();
+// Database connection settings
+include("link/dbconnection.php");
+include '../module1/sessionExpert.php';
 ?>
 
 <!DOCTYPE html>
