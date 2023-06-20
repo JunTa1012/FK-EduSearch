@@ -1,3 +1,34 @@
+<?php 
+        if (isset($_POST['Submit'])){
+
+            include "../../dbconnect.php";
+
+            function validate($data){
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                return $data;
+            }
+
+            $user_rating = validate($_POST['rating']);
+        
+
+                $sql = "INSERT INTO post(user_rating) 
+                        VALUES ('$user_rating') WHERE Post_ID=$Post_ID";
+                $result = mysqli_query($conn, $sql);
+
+                if($result){
+                    echo "Success";
+                }else{
+                    header("Location:../User/Rating.php?error=unknown error occured&");
+                }
+            }
+        
+        
+        ?>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -250,8 +281,9 @@
         <div id="column main-content">
            <div class="header"><h1>Rating</h1> </div>
           
-           <form action="" method="POST">
-            <label>Topic: </label> <input type="text"  id="post_category" name="topic"><br><br>
+           <form action="../User/Rating.php?Post_ID=<?php echo $Post_ID;?>" method="POST">
+           
+            <label>Category: </label> <input type="text"  id="post_category" name="topic"><br><br>
             <label>Question: </label> <input type="text"  id="post_content" name="question"><br><br>
             <label>Expert's Answer</label> <input type="text"  id="expert_answer" name="expertAns"><br><br>
             <label>Expert's Name </label> <input type="text"  id="expert_name" name="expertName"><br><br>

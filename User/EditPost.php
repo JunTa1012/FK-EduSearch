@@ -1,4 +1,57 @@
-
+<?php 
+include '../dbconnect.php'; 
+ 
+// session_start(); 
+// Check if a post ID is provided 
+if (isset($_GET['Post_ID'])) { 
+  $Post_ID = $_GET['Post_ID']; 
+  // Retrieve the publication details from the database 
+  $sql = "SELECT * FROM post WHERE Post_ID = $Post_ID"; 
+  $result = $conn->query($sql);  
+ 
+  if ($result->num_rows > 0) { 
+    $row = $result->fetch_assoc(); 
+    $postTitle = $row['post_title']; 
+    $postContent = $row['post_content']; 
+    $postKeyword = $row['post_keyword']; 
+    $postCategory = $row['post_category']; 
+    $postDate= $row['post_date']; 
+    $postTime= $row['post_time'];
+    $postComment = $row['post_comment']; 
+  } else { 
+    echo "Post Not Found."; 
+    exit; 
+  } 
+} else { 
+  echo "No Post ID provided."; 
+  exit; 
+} 
+// Handle form submission 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+  // Validate and sanitize user inputs 
+  $updatedPostTitle = mysqli_real_escape_string($conn, $_POST['postTitle']); 
+  $updatedPostContent = mysqli_real_escape_string($conn, $_POST['postContent']); 
+  $updatedPostKeyword = mysqli_real_escape_string($conn, $_POST['postKeyword']); 
+  $updatedPostCategory = mysqli_real_escape_string($conn, $_POST['postCategory']); 
+  $updatedPostDate = mysqli_real_escape_string($conn, $_POST['postDate']); 
+  $updatedPostTime = mysqli_real_escape_string($conn,$_POST['postTime']);
+  $updatedPostComment =  mysqli_real_escape_string($conn, $_POST['postComment']);
+ 
+  // Update the publication in the database 
+  $updateSql = "UPDATE post SET post_title= '$updatedPostTitle',post_content= '$updatedPostContent',post_keyword= '$updatedPostKeyword', post_category= '$updatedPostCategory',post_date = '$updatedPostDate', post_time = '$updatedPostTime',post_comment = '$updatedPostComment' WHERE Post_ID = $Post_ID"; 
+  if ($conn->query($updateSql) === true) { 
+    echo "Post updated successfully."; 
+    header("Location: ../User/DiscussionBoard.php"); 
+    // You can redirect the user to a different page or display a success message here 
+  } else { 
+    echo "Error updating post: "; 
+    // You can handle the error scenario as per your requirements 
+  } 
+} 
+ 
+ 
+$conn->close(); 
+?> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -258,15 +311,15 @@ textarea{
            <h2>My Post</h2>
 </div>      
            <table>
-           <form action="../User/php/updatePost.php" method="POST">
+           <form action="../User/EditPost.php?Post_ID=<?php echo $Post_ID;?>" method="POST">
           
-            <tr><th>Question Subtitle</th><td><input type="text"  id="post_title" name="postTitle" value="<?=$row['postTitle']?>"><i class='fas fa-pencil-alt' style='color:darkblue'></i></td></tr>
-            <tr><th class="bigger">Content</th><td class="bigger"> <input type="text" name="postContent" id="post_content" value="<?=$row['postContent']?>"><i class='fas fa-pencil-alt' style='color:darkblue'></i></td></tr>
-            <tr><th>Keyword</th><td><input type="text"  id="post_keyword" name="postKeyword" value="<?=$row['postKeyword']?>"><i class='fas fa-pencil-alt' style='color:darkblue'></i></td></tr>
-            <tr><th>Category</th><td><input type="text"  id="post_category" name="postCategory" value="<?=$row['postCategory']?>"><i class='fas fa-pencil-alt' style='color:darkblue'></i></td></tr>
-            <tr><th>Date</th><td rowspan="2"><input type="datetime-local"  id="Post_dateTime" name="postDateTime" value="<?=$row['postDateTime']?>">&nbsp;<i class='fas fa-pencil-alt' style=';color:darkblue'></i></td></tr>
-            <th>Time</th></tr>
-            <tr><th>Comment</th><td><textarea rows="5" cols="50" name="postComment" id="post_comment" value="<?=$row['postComment']?>">Comment......</textarea><i class='fas fa-pencil-alt' style=';color:darkblue'></i></td>
+            <tr><th>Question Subtitle</th><td><input type="text"  id="post_title" name="postTitle" value="<?php echo $postTitle;?>" required><i class='fas fa-pencil-alt' style='color:darkblue'></i></td></tr>
+            <tr><th class="bigger">Content</th><td class="bigger"> <input type="text" name="postContent" id="post_content" value="<?php echo $postContent;?>" required><i class='fas fa-pencil-alt' style='color:darkblue'></i></td></tr>
+            <tr><th>Keyword</th><td><input type="text"  id="post_keyword" name="postKeyword" value="<?php echo $postKeyword;?>" required><i class='fas fa-pencil-alt' style='color:darkblue'></i></td></tr>
+            <tr><th>Category</th><td><input type="text" id="post_category" name="postCategory" value="<?php echo $postCategory;?>" required><i class='fas fa-pencil-alt' style='color:darkblue'></i></td></tr>
+            <tr><th>Date</th><td><input type="date"  id="post_date" name="postDate" value="<?php echo $postDate;?>" required>&nbsp;<i class='fas fa-pencil-alt' style=';color:darkblue'></i></td></tr>
+            <tr><th>Time</th><td><input type="time"  id="post_time" name="postTime" value="<?php echo $postTime;?>" required>&nbsp;<i class='fas fa-pencil-alt' style=';color:darkblue'></i></td></tr>
+            <tr><th>Comment</th><td><textarea rows="5" cols="50" name="postComment" id="post_comment" required><?php echo $postComment;?></textarea><i class='fas fa-pencil-alt' style=';color:darkblue'></i></td>
 </table>
           <input type="text" name="Post_ID" value="<?=$row['Post_ID']?>" hidden>
           <input type="button" name="cancel" value="Cancel" onclick="window.location='../User/DiscussionBoard.php'" >

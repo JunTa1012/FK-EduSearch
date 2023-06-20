@@ -16,7 +16,7 @@
   }
   body {
     
-    background-color: blue;
+    background-color: white;
   }
 
 /*
@@ -263,7 +263,7 @@ input[type=button]{
                 <li><a class="nav-link" href="../User/UserHomepage.php">Home</a></li>
                 <li><a class="nav-link" href="../User/UserAccountProfile.php">Account Profile</a></li>
                 <li><a class="nav-link active" href="../User/DiscussionBoard.php">Discussion Board</a></li>
-                <li><a class="nav-link" href="../User/UserComplaint.php">Complaint</a></li>
+                <li><a class="nav-link" href="../Complaint/UserComplaint.php">Complaint</a></li>
                 <li><a class="nav-link" href="../User/TotalPost.php">Total Post</a></li>
                 <li><a class="nav-link" href="../User/PostReport.php">Post Report</a></li>
                 <li><a class="nav-link" href="../login.php">Log Out</a></li>
@@ -289,8 +289,8 @@ input[type=button]{
             <tr><th>Content<a class="star">*</a> </th><td> <input type="text" name="postContent" id="post_content" placeholder="Content of the question that you want to ask"></td></tr>
             <tr><th>Keyword<a class="star">*</a> </th><td><input type="text"  id="post_keyword" name="postKeyword" placeholder="Software Engineering, AI, etc."></td></tr>
             <tr><th>Category<a class="star">*</a></th><td><input type="text"  id="post_category" name="postCategory" placeholder="Insert Your Post Category"></td></tr>
-            <tr><th>Date<a class="star">*</a></th><td rowspan="2"><input type="datetime-local"  id="PostDateTime" name="postDateTime"></td></tr>
-            <th>Time<a class="star">*</a></th></tr>
+            <tr><th>Date<a class="star">*</a></th><td><input type="date"  id="PostDate" name="postDate"></td></tr>
+            <tr><th>Time<a class="star">*</a></th><td><input type="time"  id="PostTime" name="postTime"></td></tr>
             <tr><th>Comment<a class="star">*</a></th><td><textarea rows="5" cols="50" name="postComment" id="postComment"Comment......></textarea></td>
             <br><br>
             

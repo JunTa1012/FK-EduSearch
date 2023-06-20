@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -89,7 +87,7 @@
                             width: 200px;
                             padding-top: 30px;
                             padding-left: 0px;
-                            padding-bottom: 13px;
+                            padding-bottom: 400px;
 
                         }
                         .nav-link {
@@ -217,6 +215,10 @@
         <?php
         include "../User/php/readUserPost.php";
         ?>
+
+        <?php 
+        include "../User/php/ReadAllPost.php";
+        ?>
         <script>
 
             function openPost(event, PostType){
@@ -297,8 +299,19 @@
         </div>
 
         <div id="allQuestions" class="tabcontent">
-        <a>Hello</a>
-        
+        <table>
+            <?php if (mysqli_num_rows($result2)) { ?>
+            <tr><th>#</th><th>Post Questions</th><th>Post Category</th><th>Date & Time</th><th>Post Status</th><th>Actions</th></tr>
+          <?php 
+         $i = 0;
+          while ($rows = mysqli_fetch_assoc($result2)){
+         $i++;
+         ?>
+            <tr><td><?=$i?></td><td><?=$rows['post_title']?></td><td><?php echo $rows['post_category']?></td><td><?php echo $rows['post_date'] ?><br><?php echo $rows['post_time']?></td><td><?php echo $rows['postStatus']?></td>
+            <td><a href="php/calLike.php"><i class='far fa-thumbs-up' style='font-size:24px;color:darkblue'></i></a></td></tr>
+        <?php } ?>
+          </table>
+          <?php } ?>
         </div>
 
         <div id="yourPost" class="tabcontent">
@@ -310,10 +323,10 @@
           while ($rows = mysqli_fetch_assoc($result)){
          $i++;
          ?>
-            <tr><td><?=$i?></td><td><?=$rows['post_title']?></td><td><?php echo $rows['post_category']?></td><td><?php echo $rows['post_dateTime']?></td><td><?php echo $rows['postStatus']?></td>
+            <tr><td><?=$i?></td><td><?=$rows['post_title']?></td><td><?php echo $rows['post_category']?></td><td><?php echo $rows['post_date'] ?><br><?php echo $rows['post_time']?></td><td><?php echo $rows['postStatus']?></td>
             <td><a href="../User/ViewPostDetail.php"><i class='fas fa-eye' style='font-size:24px;color:darkblue'></i></a>
-            <a href="../User/EditPost.php?id=<?=$rows['Post_ID']?>"><i class='fas fa-edit' style='font-size:24px;color:darkblue'></i></a>
-            <a href="/User/DeletePost.php"><i class='far fa-trash-alt' style='font-size:24px;color:red'></i></a>
+            <a href="../User/EditPost.php?Post_ID=<?=$rows['Post_ID']?>"><i class='fas fa-edit' style='font-size:24px;color:darkblue'></i></a>
+            <a href="../User/DeletePost.php?Post_ID=<?=$rows['Post_ID']?>"><i class='far fa-trash-alt' style='font-size:24px;color:red'></i></a>
             </td></tr>
         <?php } ?>
         </table>
