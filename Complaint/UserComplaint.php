@@ -73,7 +73,7 @@ include '../module1/sessionUser.php';
                 <li><a class="nav-link active" href="UserComplaint.php">Complaint</a></li>
                 <li><a class="nav-link" href="../User/TotalPost.php">Total Post</a></li>
                 <li><a class="nav-link" href="../User/PostReport.php">Post Report</a></li>
-                <li><a class="nav-link" href="../login.php">Log Out</a></li>
+                <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
             </ul>
         </nav>
         <!-- content -->

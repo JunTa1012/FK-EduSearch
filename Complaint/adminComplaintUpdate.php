@@ -260,7 +260,7 @@ include_once '../module1/sessionAdmin.php';
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            <a class="dropdown-item d-flex align-items-center" href="../module1/logout.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -340,7 +340,7 @@ include_once '../module1/sessionAdmin.php';
             </li>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="index.html">
+                <a class="nav-link collapsed" href="../module1/logout.php">
                     <i class="bi bi-grid"></i>
                     <span>Log Out</span>
                 </a>
