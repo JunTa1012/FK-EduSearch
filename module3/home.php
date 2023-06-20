@@ -1,12 +1,8 @@
 <?php
 session_start();
-include("./link/dbconnection.php");
-
-// $_SESSION['expert_ID']=1;
-if (isset($_SESSION['ERROR_MSG'])) {
-  echo '<script>alert("' . $_SESSION['ERROR_MSG'] . '")</script>';
-  $_SESSION['ERROR_MSG'] = null;
-}
+// Database connection settings
+include("link/dbconnection.php");
+include '../module1/sessionExpert.php';
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +49,7 @@ if (isset($_SESSION['ERROR_MSG'])) {
       <li><a class="nav-link" href="publication.php">Discussion Board</a></li>
       <li><a class="nav-link" href="calTotal.php">Analytics</a></li>
       <br><br>
-      <li><a class="nav-link" href="#">Log Out</a></li>
+      <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
     </ul>
   </nav>
   <!-- content -->

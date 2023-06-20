@@ -1,3 +1,9 @@
+<?php
+include("dbconnection.php");
+session_start();
+include_once '../module1/sessionAdmin.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -254,7 +260,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            <a class="dropdown-item d-flex align-items-center" href="../module1/logout.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -334,7 +340,7 @@
             </li>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="index.html">
+                <a class="nav-link collapsed" href="../module1/logout.php">
                     <i class="bi bi-grid"></i>
                     <span>Log Out</span>
                 </a>
@@ -354,7 +360,6 @@
         </div><!-- End Page Title -->
 
         <?php
-        include("dbconnection.php");
 
         if (isset($_GET['complaint_id'])) {
             $complaintID = $_GET['complaint_id'];
