@@ -1,6 +1,7 @@
 <?php
 // Database connection settings
-include 'dbconnection.php';
+include './link/dbconnection.php';
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +30,7 @@ include 'dbconnection.php';
     <!-- user profile -->
     <div>
       <!-- <a class="icon-link" href="#"> -->
-      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
-
-
+      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" ></p>
         <!-- </a> -->
     </div>
 

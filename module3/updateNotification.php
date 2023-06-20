@@ -1,6 +1,6 @@
 <?php
-include 'dbconnection.php';
-// session_start();
+include './link/dbconnection.php';
+
 // Check if a post ID is provided
 if (isset($_GET['post_id'])) {
   $Post_ID = $_GET['post_id'];

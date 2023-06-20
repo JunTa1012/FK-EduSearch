@@ -1,29 +1,9 @@
 <?php
 session_start();
 // Database connection settings
-include 'dbconnection.php';
-
-            $sql = "SELECT * FROM expert";
-            $result = $conn->query($sql);
-
-            while ($row = mysqli_fetch_assoc($result)) {
-                $Expert_ID = $row['Expert_ID'];
-                $expert_name = $row['expert_name'];
-                $expert_email = $row['expert_email'];
-                $expert_profile = $row['expert_profile'];
-                $expert_password = $row['expert_password'];
-                $expert_phoneNum = $row['expert_phoneNum'];
-                $expert_researchArea1 = $row['expert_researchArea1'];
-                $expert_researchArea2 = $row['expert_researchArea2'];
-                $expert_researchArea3 = $row['expert_researchArea3'];
-                $expert_academicStatus = $row['expert_academicStatus'];
-                $expert_socialAcc1 = $row['expert_socialAcc1'];
-                $expert_socialAcc2 = $row['expert_socialAcc2'];
-                $expert_CV = $row['expert_CV'];
-            }
+include './link/dbconnection.php';
 
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -38,34 +18,32 @@ include 'dbconnection.php';
     <!-- external stylesheet -->
     <link rel="stylesheet" href="style/account.css">
     <!-- <link rel="stylesheet" href="style/profile.css"> -->
-
-
 </head>
 
 <body>
     <!-- title bar -->
-    <div style="height: 170px;width: 100%;display: flex;align-items: center;justify-content: space-between;padding: 22px 14px;background-color:#9021AC">
+    <div style="height:fit-content;width: 100%;display: flex;align-items: center;justify-content: space-between;padding: 22px 14px;background-color:#9021AC">
+        <!-- FK-EduSearch-->
         <a id="FK-EduSearch" class="FK Edu-Search">FK-EduSearch</a>
+        <!-- search bar -->
         <div>
             <input style="color:#5D0773;padding-left:50px;padding-top:10px;margin-bottom:12px;margin-left:1px;border:none;" type="search" placeholder="Search..." />
             <img style=" margin-right:10px ;padding-top:3px;margin-left:3px ;margin-top:128px;margin: bottom 1px;width:23px;height:23px" src="image/search.png" alt="search cant function">
         </div>
         <!-- user profile -->
         <div>
-            <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
+            <!-- <a class="icon-link" href="#"> -->
+            <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"></p>
         </div>
-    </div>
-    <!-- </a> -->
-    </div>
 
     </div>
 
     <!-- navigation bar (left side) -->
-    <nav style="background-color:#F9DFFF; position:initial; top: 4; left: 0; height: 100vh; width: 255px; padding-top: 18px; padding-bottom: 30px;">
+    <nav style=" background-color:#F9DFFF;display: flex;flex-direction: column;justify-content: space-between;height: 100%;width: 255px;padding-top:18px;padding-bottom: 30px;">
         <ul style="text-align: center; font-family: 'PT-serif', serif; font-size: 18px;">
             <li><a class="nav-link" href="home.php">Home</a></li>
-            <li><a class="nav-link active " href="account.php">Account Profile</a></li>
-            <li><a class="nav-link " href="notification.php">Notifications</a></li>
+            <li><a class="nav-link active" href="account.php">Account Profile</a></li>
+            <li><a class="nav-link  " href="notification.php">Notifications</a></li>
             <li><a class="nav-link" href="publication.php">Discussion Board</a></li>
             <li><a class="nav-link" href="calTotal.php">Analytics</a></li>
             <br><br>
@@ -73,25 +51,39 @@ include 'dbconnection.php';
         </ul>
     </nav>
     <!-- content -->
+<?php
+$sql = "SELECT * FROM expert";
+$result = $conn->query($sql);
 
-    <div style="margin-top:-700px;padding:5px 5px 5px 5px ;margin-left:255px;font-size:17px;color:white ;background-color:#5D0773;">
+while ($row = mysqli_fetch_assoc($result)) {
+    $Expert_ID = $row['Expert_ID'];
+    $expert_name = $row['expert_name'];
+    $expert_email = $row['expert_email'];
+    $expert_profile = $row['expert_profile'];
+    $expert_password = $row['expert_password'];
+    $expert_phoneNum = $row['expert_phoneNum'];
+    $expert_researchArea1 = $row['expert_researchArea1'];
+    $expert_researchArea2 = $row['expert_researchArea2'];
+    $expert_researchArea3 = $row['expert_researchArea3'];
+    $expert_academicStatus = $row['expert_academicStatus'];
+    $expert_socialAcc1 = $row['expert_socialAcc1'];
+    $expert_socialAcc2 = $row['expert_socialAcc2'];
+    $expert_CV = $row['expert_CV'];
+}?>
+    <div style="margin-top:-550px;padding:5px 5px 5px 5px ;margin-left:255px;font-size:17px;color:white ;background-color:#5D0773;">
         <b>My Profile</b> &nbsp;&nbsp;&nbsp;
         <button style="border:0;padding:2px 5px 5px 5px;"><b><a style="text-decoration:none;color:black;" href="editProfile.php?expert_id=<?php echo $Expert_ID; ?>">Edit Profile</a></b></button>
     </div>
     <div class="form-container" style="color:black;">
 
         <div style="margin-left:260px;">
-            
-
-
             <div>
-
                 <div style="margin-left:3px;">
                     <span>
 
                         <div style=" flex: 1;padding: 30px;margin-left:0px;background-color:#EFE7F0;">
-                            <img src="image/woman.png" alt="" style="width: 100px;">
-                            <h2 style="font-size: 20px;margin-bottom: 10px;">Personal Info</h2>
+                            <img src="image/woman.png" alt="" style="width: 70px;">
+                            <h2 style="font-size: 20px;">Personal Info</h2>
                             <p><strong>Name:</strong> <?php echo $expert_name; ?></p>
                             <p><strong>Email:</strong> <?php echo $expert_email; ?></p>
                             <p><strong>Phone:</strong> <?php echo $expert_phoneNum; ?></p>
@@ -107,7 +99,7 @@ include 'dbconnection.php';
                                 <li><?php echo $expert_researchArea2; ?></li>
                                 <li><?php echo $expert_researchArea3; ?></li>
                             </ul>
-                            <br>
+
                         </div>
 
                         <div style=" flex: 1;padding: 10px;background-color:#F5CFFA;">
