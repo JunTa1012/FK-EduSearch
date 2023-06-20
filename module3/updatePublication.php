@@ -1,5 +1,5 @@
 <?php
-include 'dbconnection.php';
+include './link/dbconnection.php';
 
 // session_start();
 // Check if a publication ID is provided

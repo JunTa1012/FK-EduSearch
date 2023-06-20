@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Database connection settings
-include 'dbconnection.php';
+include './link/dbconnection.php';
 
 ?>
 
@@ -16,9 +16,6 @@ include 'dbconnection.php';
   <!-- external stylesheet -->
   <link rel="stylesheet" href="style/style.css">
   <link rel="stylesheet" href="style/report.css">
-  <!-- javascript -->
-  <script src="scripts/RestaurantOwner.js" charset="utf-8"></script>
-  <script src="scripts/MenuList.js" charset="utf-8"></script>
   <!-- icon library | font awesome -->
   <script src="https://kit.fontawesome.com/06b2bd9377.js" crossorigin="anonymous"></script>
 </head>
@@ -28,7 +25,6 @@ include 'dbconnection.php';
   <div style="height: 170px;width: 100%;display: flex;align-items: center;justify-content: space-between;padding: 22px 14px;background-color:#9021AC">
     <!-- FK-EduSearch-->
     <a id="FK-EduSearch" class="FK Edu-Search">FK-EduSearch</a>
-
     <!-- search bar -->
     <div>
       <input style="color:#5D0773;padding-left:50px;padding-top:10px;margin-bottom:12px;margin-left:1px;border:none;" type="search" placeholder="Search..." />
@@ -37,10 +33,7 @@ include 'dbconnection.php';
     <!-- user profile -->
     <div>
       <!-- <a class="icon-link" href="#"> -->
-      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
-
-
-        <!-- </a> -->
+      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"></p>
     </div>
 
   </div>

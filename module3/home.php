@@ -1,3 +1,14 @@
+<?php
+session_start();
+include("./link/dbconnection.php");
+
+// $_SESSION['expert_ID']=1;
+if (isset($_SESSION['ERROR_MSG'])) {
+  echo '<script>alert("' . $_SESSION['ERROR_MSG'] . '")</script>';
+  $_SESSION['ERROR_MSG'] = null;
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +23,6 @@
   <!-- external stylesheet -->
   <link rel="stylesheet" href="style/account.css">
   <!-- <link rel="stylesheet" href="style/profile.css"> -->
-
 
 </head>
 
