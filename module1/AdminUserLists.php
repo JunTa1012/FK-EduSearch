@@ -147,9 +147,9 @@ $totalExperts = $conn->query("SELECT COUNT(*) as total FROM expert")->fetch_asso
             <ul>
                 <li><a class="nav-link" href="AdminHomepage.php">Home</a></li>
                 <li><a class="nav-link" href="User/UserAccountProfile.php">Update User Profile</a></li>
-                <li><a class="nav-link" href="User/UserDiscussionBoard.php">Complaint Menu</a></li>
+                <li><a class="nav-link" href="../Complaint/adminComplaintList.php">Complaint Menu</a></li>
                 <li><a class="nav-link" href="User/UserComplaint.php">User Report</a></li>
-                <li><a class="nav-link" href="User/TotalPost.php">Admin Report</a></li>
+                <li><a class="nav-link" href="../Report/generalKPIsReport.php">Admin Report</a></li>
                 <li><a class="nav-link active" href="User/PostReport.php">User Lists</a></li>
                 <li><a class="nav-link" href="Logout.php">Log Out</a></li>
             </ul>

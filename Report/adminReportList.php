@@ -1,3 +1,8 @@
+<?php
+include("connection.php");
+session_start();
+include_once '../module1/sessionAdmin.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -275,7 +280,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="../module1/AdminHomepage.php">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>
@@ -328,14 +333,14 @@
       </li>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="../module1/AdminUserLists.php">
           <i class="bi bi-grid"></i>
           <span>User Lists</span>
         </a>
       </li>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="../module1/logout.php">
           <i class="bi bi-grid"></i>
           <span>Log Out</span>
         </a>
