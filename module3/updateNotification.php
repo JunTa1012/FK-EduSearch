@@ -19,7 +19,7 @@ if (isset($_GET['post_id'])) {
     $post_content = $row['post_content'];
     $postStatus = $row['postStatus'];
     $expertAnswer = $row['expertAnswer'];
-    $post_dateTime = $row['post_dateTime'];
+    $post_date = $row['post_date'];
   } else {
     echo "Post not found.";
     exit;
@@ -100,7 +100,7 @@ $conn->close();
 
   <div class="form-group" style="margin-left:260px;margin-top:20px">
     <label id="Description" name="Description">User: Abby</label><br>
-    <label id="Date" name="Date">Date: <?php echo $post_dateTime; ?></label><br>
+    <label id="Date" name="Date">Date: <?php echo $post_date; ?></label><br>
   </div>
   <form action="updateNotification.php?post_id=<?php echo $Post_ID; ?>" method="POST">
     <div class="form-group" style="margin-left:260px;margin-top:20px">

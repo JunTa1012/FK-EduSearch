@@ -78,9 +78,9 @@ $expert_name = $row['expert_name'];
         <table id="publicationTableAll" style="background-color:#F7F0F9;width:100%;">
           <thead>
             <tr>
-              <th style="background-color:#5A0068;color:white;">Date</th>
-              <th style="background-color:#5A0068;color:white;">Publication Type</th>
-              <th style="background-color:#5A0068;color:white;">Number of Publications</th>
+              <th style="background-color:#5A0068;color:white;"></th>
+              <th style="background-color:#5A0068;color:white;"></th>
+              <th style="background-color:#5A0068;color:white;"></th>
             </tr>
           </thead>
           <tbody>
@@ -92,19 +92,19 @@ $expert_name = $row['expert_name'];
             $sql = "SELECT publication_date, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY Publication_ID ORDER BY publication_date ASC";
             $result = $conn->query($sql);
 
-            
 
-              $query = "SELECT MONTHNAME(publication_date) AS month, count(Publication_ID) AS sum FROM publication_list GROUP BY MONTH(publication_date)";
-              $result = mysqli_query($conn, $query);
-              $num_row = mysqli_num_rows($result);
-              $month = array();
-              $sum = array();
-              for ($i = 0; $i < $num_row; $i++) {
-                while ($row = mysqli_fetch_array($result, 1)) {
-                  array_push($month, $row['month']);
-                  array_push($sum, $row['sum']);
-                }
+
+            $query = "SELECT MONTHNAME(publication_date) AS month, count(Publication_ID) AS sum FROM publication_list GROUP BY MONTH(publication_date)";
+            $result = mysqli_query($conn, $query);
+            $num_row = mysqli_num_rows($result);
+            $month = array();
+            $sum = array();
+            for ($i = 0; $i < $num_row; $i++) {
+              while ($row = mysqli_fetch_array($result, 1)) {
+                array_push($month, $row['month']);
+                array_push($sum, $row['sum']);
               }
+            }
             while ($row = mysqli_fetch_assoc($result)) {
               $date = $row['publication_date'];
               $publication_type = $row['publication_type'];
@@ -132,21 +132,21 @@ $expert_name = $row['expert_name'];
             </tr>
           </thead>
           <tbody>
-            <?php       
+            <?php
             $sql = "SELECT DAYNAME(publication_date) AS hari, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY DAYNAME(publication_date), publication_type ORDER BY publication_date DESC";
             $result = $conn->query($sql);
-           
+
             while ($row = mysqli_fetch_assoc($result)) {
               $date = $row['hari'];
               $publication_type = $row['publication_type'];
               $totalPublication = $row['Total_Publication'];
             ?>
-              <tr >
+              <tr>
                 <td><?php echo $date; ?></td>
                 <td><?php echo $publication_type; ?></td>
                 <td><?php echo $totalPublication; ?></td>
               </tr>
-            <?php } ?>          
+            <?php } ?>
           </tbody>
         </table>
         <table id="publicationTableWeek">
@@ -162,7 +162,7 @@ $expert_name = $row['expert_name'];
             // Get the total number of Publications
             $sql = "SELECT WEEK(publication_date) AS minggu, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY WEEK(publication_date), publication_type";
             $result = $conn->query($sql);
-           
+
             while ($row = mysqli_fetch_assoc($result)) {
               $date = $row['minggu'];
               $publication_type = $row['publication_type'];
