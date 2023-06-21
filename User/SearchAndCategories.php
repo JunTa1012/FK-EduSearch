@@ -1,8 +1,47 @@
 <?php
+<<<<<<< HEAD
+
+include ("../dbconnect.php");
+
+$output = '';
+//collect
+
+if(isset($_POST['search'])) {
+
+    $searchq = $_POST['search'];
+    $searchq = preg_replace("#[^0-9a-z]#i","",$searchq);
+
+    $query = "SELECT * FROM post WHERE post_keyword LIKE '%$searchq%'";
+
+    $query_run = mysqli_query($conn,$query);
+    $count = mysqli_num_rows($query_run);
+
+    if($count ==0){
+        $output ='There was no search results!';
+    }
+    else{
+        while($row = mysqli_fetch_array($query_run)){
+            $postQuestion = $row['post_title'];
+            $postDate = $row['post_date'];
+            $postTime = $row['post_time'];
+            $postKeyword = $row['post_keyword'];
+           
+
+            $output .= 'Post Question : &nbsp;' . $postQuestion . '<br> Post Date : &nbsp;'  . $postDate. '<br> Post Time : &nbsp;' . $postTime . '<br> Post Keyword : &nbsp;' . $postKeyword . '<br><br><br>'; 
+        }
+    }
+
+}
+
+
+?>
+
+=======
 include("../dbconnect.php");
 session_start();
 include_once '../module1/sessionAdmin.php';
 ?>
+>>>>>>> 6cff52b188c20bffff7d1f4e0852086689d77e5b
 <!DOCTYPE html>
 <html>
     <head>
@@ -94,7 +133,7 @@ include_once '../module1/sessionAdmin.php';
                     width: 200px;
                     padding-top: 30px;
                     padding-left: 0px;
-                    padding-bottom: 13px;
+                    padding-bottom: 1500px;
 
                 }
                 .nav-link {
@@ -152,28 +191,25 @@ include_once '../module1/sessionAdmin.php';
                     margin: 7px 120px;
                     float:right;
                 }
-
-                .pagination {
-                     display: inline-block;
+                
+                .btn{
+                    padding: 10px 100px;
+                   
                 }
 
-                .pagination a {
-                    color: black;
+                .searchkeywordbar{
+                    padding: 10px 100px;
                     float: left;
-                    padding: 8px 16px;
-                    text-decoration: none;
-                    transition: background-color .3s;
-                    border: 1px solid #ddd;
+                    margin-right: 10px;
                 }
 
-                .pagination a.active {
-                    background-color: #4CAF50;
-                    color: white;
-                    border: 1px solid #4CAF50;
+                .searchoutput{
+                    border:solid 1px;
+                    border-color: black;
+                    padding:10px 10px;
+
                 }
 
-                .pagination a:hover:not(.active) {background-color: #CBD8FA;}
-              
         </style>
     </head>
 
@@ -222,41 +258,49 @@ include_once '../module1/sessionAdmin.php';
             </div>
          <!-- main content (right side) -->
         <div id="column main-content">
-           <div class="SearchKeywordForm">
-          <label>Search Keywords: </label><input type="text" id="searchkeyword" name="searchkeyword" placeholder="Enter The Keyword......"><button type ="submit" name="Submit" value="Submit" class= "button">Submit</button>
-            </div>
-          <div class="UserSearchCategory">
-          <label>Categories By: </label>
-          <select id="searchcategory">
-            <option value="" disabled>--Select The Category Of The Post--</option>
-            <option value="Software Engineering">Software Engineering</option>
-            <option value="Graphics And Multimedia">Graphics And Multimedia</option>
-            <option value="Human Computer Interaction">Human Computer Interaction</option>
-            <option value="Systems And Networking">Systems And Networking</option>
-            <option value="Artificial Intelligence And Machine Learning">Artificial Intelligence And Machine Learning</option>
-            </select>
-            <button type ="submit" name="Submit" value="Submit" class= "button">Submit</button>
-            </div>
-        <table>
-            <tr><th>Post Questions</th><th>Date</th><th>Time</th><th>Post Status</th><th>Category</th></tr>
-            <tr><td><strong>How Can I Get Resources For Research?</strong><br>Software Engineering</td><td>16 April 2023</td><td>8:00 A.M.</td><td>Accepted</td><td>Software Engineering</td></tr>
-            <tr><td><strong>Are My Datasets Suitable For Research?</strong><br>Human Computer Interaction</td><td>16 April 2023</td><td>10:30 P.M.</td><td>Completed</td><td>Human Computer Interaction</td></tr>
-            <tr><td><strong>How Can I Do Fuzzy Logic Research?</strong><br>Artificial Intelligence And Machine Learning</td><td>16 April 2023</td><td>11:30 P.M.</td><td>Completed</td><td>Artificial Inteligence And Machine Learning</td></tr>
-            <tr><td><strong>What Element Must Include In Graphics?</strong><br>Graphics And Multimedia</td><td>17 April 2023</td><td>10:00 P.M.</td><td>Completed</td><td>Graphics And Multimedia</td></tr>
-        
-        </table>
-        <a href="../User/DiscussionBoard.php">&laquo; Home</a>
-        <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#" class="active">1</a>
-            <a href="#" >2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">&raquo;</a>
+            <h2>Search By Keyword: </h2>
+          <form class='form' action='SearchAndCategories.php' method="POST">
+                
+                <br><br>
+                <button class='btn' type='submit' name='search' style='margin-right: 2rem;'>Search Keywords </button>
+
+                <input class='searchkeywordbar' id='search-bar' type="text" name="search" placeholder="Search for Keywords">
+
+                
+
+
+            </form>
+                <br>
+            <div class="searchoutput">
+             <?php print("$output");?>
             </div>
 
+            <br><br>
+            <hr>
+            <div class="UserSearchCategory">
+          <label>Categories By: </label>
+                <form action='SearchAndCategories.php' method="POST">
+                    
+            <select id="searchcategory" name="searchcategory">
+                <option value="" disabled>--Select The Category Of The Post--</option>
+                <option value="All Categories">All Categories</option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Graphics And Multimedia">Graphics And Multimedia</option>
+                <option value="Human Computer Interaction">Human Computer Interaction</option>
+                <option value="Systems And Networking">Systems And Networking</option>
+                <option value="Artificial Intelligence And Machine Learning">Artificial Intelligence And Machine Learning</option>
+                </select>
+                <button type ="submit" name="Submit" value="Submit" class= "button">Submit</button>
+            </form>
+        </div>
+        <div class="searchCategoryOutput">
+             <?php 
+
+             ?>
+            </div>
+       <script src="../User/Javascript/script.js"></script>
+        <a href="../User/DiscussionBoard.php">&laquo; Home</a>
+        
         </div>
 
 

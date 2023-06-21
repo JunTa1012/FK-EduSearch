@@ -370,10 +370,10 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Admin Report</h5>
+              <h5 class="card-title">Admin Report Information</h5>
               <p>
                 <?php
-                echo "Total reports = " . $total_reports;
+                echo "Total admin reports in database = " . $total_reports;
                 ?>
               </p>
               <a class="btn btn-primary" href="../Report/adminReportForm.php">Create report</a>   

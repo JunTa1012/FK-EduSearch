@@ -345,7 +345,7 @@
 
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Admin Report Form</h1>
+            <h1>Admin Report Form | Create form</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active"><a href="../Report/reportKPIs.php">Home</a></li>

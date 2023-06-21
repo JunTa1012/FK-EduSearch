@@ -14,10 +14,11 @@
             $postContent = validate($_POST['postContent']);
             $postKeyword = validate($_POST['postKeyword']);
             $postCategory = validate($_POST['postCategory']);
-            $postDateTime = validate($_POST['postDateTime']);
+            $postDate = validate($_POST['postDate']);
+            $postTime = validate($_POST['postTime']);
             $postComment = validate($_POST['postComment']);
 
-            $user_data = 'postTitle=' . $postTitle . '&postContent=' .$postContent . '&postKeyword=' . $postKeyword . '&postCategory=' . $postCategory . '&postDateTime='. $postDateTime . '&postComment=' . $postComment;
+            $user_data = 'postTitle=' . $postTitle . '&postContent=' .$postContent . '&postKeyword=' . $postKeyword . '&postCategory=' . $postCategory . '&postDate='. $postDate .  '&postTime=' . $postTime .'&postComment=' . $postComment;
 
             if(empty($postTitle)){
                 header("Location:../CreateNewPost.php?error= Post Title is required&$user_data");
@@ -27,13 +28,16 @@
                 header("Location:../CreateNewPost.php?error= Post Keyword is required&$user_data");
             }else if(empty($postCategory)){
                 header("Location:../CreateNewPost.php?error= Post Category is required&$user_data");
-            }else if(empty($postDateTime)){
-                header("Location:../CreateNewPost.php?error= Post Date Time is required&$user_data");
-            }else if(empty($postComment)){
+            }else if(empty($postDate)){
+                header("Location:../CreateNewPost.php?error= Post Date is required&$user_data");
+            }else if(empty($postTime)){
+                header("Location:../CreateNewPost.php?error= Post Time is required&$user_data");
+            }
+            else if(empty($postComment)){
                 header("Location:../CreateNewPost.php?error= Post Comment is required&$user_data");
             }else{
-                $sql = "INSERT INTO post(post_title, post_content, post_keyword, post_category, post_dateTime, post_comment) 
-                        VALUES ('$postTitle', '$postContent', '$postKeyword', '$postCategory', '$postDateTime', '$postComment')";
+                $sql = "INSERT INTO post(post_title, post_content, post_keyword, post_category, post_date, post_time, post_comment) 
+                        VALUES ('$postTitle', '$postContent', '$postKeyword', '$postCategory', '$postDate','$postTime', '$postComment')";
                 $result = mysqli_query($conn, $sql);
 
                 if($result){

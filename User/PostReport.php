@@ -208,6 +208,144 @@ input[type=button]{
           <button type ="submit" name="Submit" value="Week" class= "button">Week</button>
           <button type ="submit" name="Submit" value="Month" class= "button">Month</button>
          
+          <?php
+          include '../dbconnect.php';
+
+          $sql = "SELECT COUNT(post_ID), WEEK(post_date) FROM post GROUP BY WEEK(post_date)";
+            $sql2 = "SELECT COUNT(post_ID), MONTHNAME(post_date), FROM post GROUP BY MONTHNAME(post_date)";
+           
+            $result = mysqli_query($conn, $sql);
+            $result2 = mysqli_query($conn, $sql2);
+            $num_row = mysqli_num_rows($result);
+            $num_row2 = mysqli_num_rows($result2);
+    
+           
+             $week = array();
+             $totalPost = array();
+           
+             $month = array();
+             $totalPost = array();
+           
+             
+        //weekly commission bar graph 
+             for($i=0; $i<$num_row; $i++){
+                            while($row = mysqli_fetch_array($result, 1)) 
+                            {
+                            
+                                array_push($week, $row['WEEK(post_date)']);
+                                array_push($totalPost, $row['COUNT(post_ID)']);
+
+                            }
+                    } 
+            //monthly commission bar graph 
+            for($x=0; $x<$num_row2; $x++){
+                        while($row = mysqli_fetch_array($result2, 1)) 
+                        {
+                        
+                            array_push($month, $row['MONTHNAME(post_date)']);
+                            array_push($totalPost, $row['COUNT(post_ID)']);
+
+                        }
+                } 
+        
+                    ?>
+                    <div id="graph">
+                        <div>
+                            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                        </div>
+                          <div id="second">
+                              <canvas id="myChart2" style="width:100%;max-width:600px"></canvas> 
+                          </div>
+                         
+                        
+                    </div>
+        </div>
+        </div>
+        
+        <script type="text/javascript">
+    var xValues = <?php echo json_encode($week);?>;
+    var yValues = <?php echo json_encode($totalPost);?>;
+    var barColors = "#6C5A8A";
+
+    new Chart("myChart", {
+  
+        type: "bar",
+        data: {
+            labels:xValues,
+            datasets: [{
+                backgroundColor: blue,
+                data: yValues,
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+                display: true,
+                text: "Your Weekly Post is "
+            },
+            scales: {
+                yAxes: [{
+                ticks: {beginAtZero: true},
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Post",
+                }
+            }],
+            
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: "Week",
+                }
+                }],
+            
+            } 
+            }
+    });
+</script>
+<script type="text/javascript">
+    var xValues = <?php echo json_encode($month);?>;
+    var yValues = <?php echo json_encode($totalPost);?>;
+    var barColors = "#6C5A8A";
+
+    new Chart("myChart2", {
+
+        type: "bar",
+        data: {
+            labels:xValues,
+            datasets: [{
+                backgroundColor: blue,
+                data: yValues,
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+                display: true,
+                text: "Your Monthly Post is"
+            },
+            scales: {
+                yAxes: [{
+                ticks: {beginAtZero: true},
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: "Post",
+                }
+            }],
+            
+            xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: "Month",
+                }
+                }],
+            
+            } 
+            }
+    });
+</script>
 
         </div>
 
