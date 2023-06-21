@@ -235,7 +235,7 @@ color: #ffffff;
             <ul>
                 <li><a class="nav-link active" href="AdminHomepage.php">Home</a></li>
                 <li><a class="nav-link" href="User/UserAccountProfile.php">Update User Profile</a></li>
-                <li><a class="nav-link" href="User/UserDiscussionBoard.php">Complaint Menu</a></li>
+                <li><a class="nav-link" href="../Complaint/adminComplaintList.php">Complaint Menu</a></li>
                 <li><a class="nav-link" href="User/UserComplaint.php">User Report</a></li>
                 <li><a class="nav-link" href="../Report/generalKPIsReport.php">Admin Report</a></li>
                 <li><a class="nav-link " href="AdminUserLists.php">User Lists</a></li>

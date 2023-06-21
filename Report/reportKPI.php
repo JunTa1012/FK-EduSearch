@@ -1,3 +1,8 @@
+<?php
+include("connection.php");
+session_start();
+include_once '../module1/sessionAdmin.php';
+?>
 <!DOCTYPE html>
 <html>
 
@@ -274,8 +279,8 @@ NAVIGRATINO BAR
                     <li><a class="nav-link" href="../Report/userReportList.php">User Report</a></li>
                     <li><a class="nav-link" href="../User/TotalPost.php">Total Post</a></li>
                     <li><a class="nav-link active" href="../Report/reportList.php">Admin Report</a></li>
-                    <li><a class="nav-link" href="../login.php">User Lists</a></li>
-                    <li><a class="nav-link" href="../login.php">Log Out</a></li>
+                    <li><a class="nav-link" href="../module1/AdminUserLists.php">User Lists</a></li>
+                    <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
                 </ul>
             </nav>
         </div>
