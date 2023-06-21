@@ -270,7 +270,7 @@ NAVIGRATINO BAR
                 <ul>
                     <li><a class="nav-link" href="#">Home</a></li>
                     <li><a class="nav-link" href="../User/UserAccountProfile.php">Update User Profile</a></li>
-                    <li><a class="nav-link" href="../User/DiscussionBoard.php">Complaint Menu</a></li>
+                    <li><a class="nav-link" href="../Complaint/adminComplaintList.php">Complaint Menu</a></li>
                     <li><a class="nav-link" href="../Report/userReportList.php">User Report</a></li>
                     <li><a class="nav-link" href="../User/TotalPost.php">Total Post</a></li>
                     <li><a class="nav-link active" href="../Report/reportList.php">Admin Report</a></li>

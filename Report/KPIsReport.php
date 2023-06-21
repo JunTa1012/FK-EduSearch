@@ -286,7 +286,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="../Complaint/adminComplaintList.php">
           <i class="bi bi-grid"></i>
           <span>Complaint Menu</span>
         </a>
@@ -342,9 +342,97 @@
     </ul>
 
   </aside><!-- End Sidebar-->
+  <script>
+    function selectMonth(month) {
+      // You can use the selected month value here to update the charts
+      // For example, you can update the start and end dates based on the selected month
+      // and then fetch the relevant data and update the charts using AJAX
+
+      console.log("Selected month: " + month);
+      // Perform necessary actions here based on the selected month
+    }
+  </script>
 
   <main id="main" class="main">
+    <?php
+    include("connection.php");
 
+    function getCountOfUsersByMonth($month)
+    {
+      global $db;
+
+      // Get the current year
+      $currentYear = date('Y');
+
+      // Construct the start and end dates of the selected month
+      $startDate = $currentYear . '-' . $month . '-01';
+      $endDate = $currentYear . '-' . $month . '-31';
+
+      // Query to count the users within the specified month
+      $query = "SELECT COUNT(*) AS user_count FROM user WHERE user_LastLogin BETWEEN '$startDate' AND '$endDate'";
+      $result = mysqli_query($db, $query);
+
+      $result && mysqli_num_rows($result);
+      $row = mysqli_fetch_assoc($result);
+      $userCount = $row['user_count'];
+
+      return $userCount;
+    }
+
+    function getCountOfPostsByMonth($month)
+    {
+      global $db;
+
+      // Get the current year
+      $currentYear = date('Y');
+
+      // Construct the start and end dates of the selected month
+      $startDate = $currentYear . '-' . $month . '-01';
+      $endDate = $currentYear . '-' . $month . '-31';
+
+      // Query to count the users within the specified month
+      $query = "SELECT COUNT(*) AS post_count FROM post WHERE post_timestamp BETWEEN '$startDate' AND '$endDate'";
+      $result = mysqli_query($db, $query);
+
+      $result && mysqli_num_rows($result);
+      $row = mysqli_fetch_assoc($result);
+      $postCount = $row['post_count'];
+
+      return $postCount;
+    }
+    $query = "SELECT COUNT(*) AS total_users FROM user";
+    $result = mysqli_query($db, $query) or die("Query failed: " . mysqli_error($db));
+
+    $result && mysqli_num_rows($result);
+    $row = mysqli_fetch_assoc($result);
+    $total_users = $row["total_users"];
+
+    $query = "SELECT COUNT(*) AS total_posts FROM post";
+    $result = mysqli_query($db, $query) or die("Query failed: " . mysqli_error($db));
+
+    $result && mysqli_num_rows($result);
+    $row = mysqli_fetch_assoc($result);
+    $total_posts = $row["total_posts"];
+
+    $postCount = getCountOfPostsByMonth($_POST['month']);
+    $userCount = getCountOfUsersByMonth($_POST['month']);
+    if ($userCount > 0) {
+      $engagementRate = $postCount / $userCount * 100;
+    } else {
+      $engagementRate = NULL;
+    }
+
+    $targetMonth = '06'; // Default month: June
+
+    if (isset($_POST['month'])) {
+      $targetMonth = $_POST['month'];
+    }
+
+    $activeUsersCount = getCountOfUsersByMonth($targetMonth);
+    $activePostsCount = getCountOfPostsByMonth($targetMonth);
+
+    $retentionRate = $activeUsersCount / $total_users * 100;
+    ?>
     <div class="pagetitle">
       <h1>Key performance indicators (KPIs) Reports</h1>
       <nav>
@@ -355,29 +443,84 @@
     </div><!-- End Page Title -->
 
     <section class="section">
-      <label for="inputState" class="form-label">Sorted By:</label>
-      <div class="row">
-        <div class="col-md-2">
-          <select id="inputState" class="form-select">
-            <option selected>Day</option>
-            <option>...</option>
-          </select>
+      <form method="POST">
+        <label for="inputState" class="form-label">Sorted By:</label>
+        <div class="row">
+          <div class="col-md-4">
+            <select id="inputState" class="form-select" name="month">
+              <option selected>Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <button type="submit" class="btn btn-primary">Change Month</button>
+          </div>
         </div>
-        <div class="col-md-2">
-          <select id="inputState" class="form-select">
-            <option selected>Week</option>
-            <option>...</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <select id="inputState" class="form-select">
-            <option selected>Month</option>
-            <option>...</option>
-          </select>
+      </form>
+      <br>
+      <div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Users <span> | All</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3" style="color: red;">
+                    <h3><?php echo $total_users ?></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Active Users <span> | Selected month</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3" style="color: green;">
+                    <h3><?php echo $activeUsersCount ?></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Total Posts <span> | All</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3" style="color: blue;">
+                    <h3><?php echo $total_posts ?></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Active Posts <span> | Selected month</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3" style="color: orange;">
+                    <h3><?php echo $activePostsCount ?></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <br>
-
       <div class="row">
         <div class="col-lg-6">
           <div class="card">
@@ -389,17 +532,28 @@
 
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
-                  new ApexCharts(document.querySelector("#donutChart"), {
-                    series: [70, 30],
-                    chart: {
-                      height: 350,
-                      type: 'donut',
-                      toolbar: {
-                        show: true
-                      }
-                    },
-                    labels: ['Posts rate', 'Inactive users'],
-                  }).render();
+                  var engagementRate = <?php echo json_encode($engagementRate); ?>;
+                  if (engagementRate === null) {
+                    // engagementRate is null
+                    var donutChartDiv = document.getElementById("donutChart");
+
+                    var paragraph = document.createElement("p");
+                    paragraph.innerHTML = "The Engagement Rate is NULL.<br>Due to empty number of users, posts or both.";
+
+                    donutChartDiv.appendChild(paragraph);
+                  } else {
+                    new ApexCharts(document.querySelector("#donutChart"), {
+                      series: [engagementRate, 100 - engagementRate],
+                      chart: {
+                        height: 350,
+                        type: 'donut',
+                        toolbar: {
+                          show: true
+                        }
+                      },
+                      labels: ['Posts rate', 'Inactive'],
+                    }).render();
+                  }
                 });
               </script>
               <!-- End Donut Chart -->
@@ -417,8 +571,10 @@
 
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
+                  const activeUsersCount = <?php echo $activeUsersCount; ?>;
+                  const total_users = <?php echo $total_users; ?>;
                   new ApexCharts(document.querySelector("#pieChart"), {
-                    series: [4, 1],
+                    series: [activeUsersCount, total_users - activeUsersCount],
                     chart: {
                       height: 350,
                       type: 'pie',
@@ -426,7 +582,7 @@
                         show: true
                       }
                     },
-                    labels: ['Active users', 'Inactive users']
+                    labels: ['Active users', 'Inactive users'],
                   }).render();
                 });
               </script>
@@ -435,7 +591,7 @@
             </div>
           </div>
         </div>
-
+      </div>
     </section>
 
   </main><!-- End #main -->

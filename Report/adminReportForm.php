@@ -286,7 +286,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="index.html">
+                <a class="nav-link collapsed" href="../Complaint/adminComplaintList.php">
                     <i class="bi bi-grid"></i>
                     <span>Complaint Menu</span>
                 </a>
@@ -345,7 +345,7 @@
 
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Report Form</h1>
+            <h1>Admin Report Form | Create form</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active"><a href="../Report/reportKPIs.php">Home</a></li>
@@ -368,7 +368,7 @@
                         $report_solution = $_POST["report_solution"];
                         $report_status = $_POST["report_status"];
 
-                        $sql = "INSERT INTO report (R_ID, report_type, report_description, report_solution, report_status) VALUES('$R_ID', '$report_type', '$report_description', '$report_solution', '$report_status') ";
+                        $sql = "INSERT INTO admin_report_list (R_ID, report_type, report_description, report_solution, report_status) VALUES('$R_ID', '$report_type', '$report_description', '$report_solution', '$report_status') ";
 
                         if (mysqli_query($db, $sql)) {
                             $message = "You have create an admin report";
@@ -378,29 +378,62 @@
                             echo "Error creating database $sql." . mysqli_error($db);
                         }
                         mysqli_close($db);
+
+                        //upload file
+                        $file = $_FILES['report_file'];
+
+                        $fileName = $_FILES['report_file']['name'];
+                        $fileTmpName = $_FILES['report_file']['tmp_name'];
+                        $fileSize = $_FILES['report_file']['size'];
+                        $fileError = $_FILES['report_file']['error'];
+                        $fileType = $_FILES['report_file']['type'];
+
+                        $fileExt = explode('.', $fileName);
+                        $fileActualExt = strtolower(end($fileExt));
+
+                        $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+
+                        if (in_array($fileActualExt, $allowed)) {
+                            if ($fileError === 0) {
+                                if ($fileSize < 1000000) {
+                                    $fileNameNew = uniqid('', true).".".$fileActualExt;
+                                    $fileDestination = '../Report/Uploads'.$fileNameNew;
+                                    move_uploaded_file($fileTmpName, $fileDestination);
+                                    header("Location: adminReportList.php");
+                                } else {
+                                    echo "Your file is too big!";
+                                }
+                            }
+                        } else {
+                            echo "You cannot uoload this file type!";
+                        }
                     }
                     ?>
                     <!-- Report Form -->
                     <form class="row g-3" method="POST">
                         <div class="col-sm-6">
                             <label for="inputName4" class="form-label">Report ID</label>
-                            <input type="text" class="form-control" name="RL_ID">
+                            <input type="text" class="form-control" name="RL_ID" value="Automatic" disabled>
                         </div>
                         <div class="col-sm-6">
                             <label for="inputName5" class="form-label">Report Type</label>
-                            <input type="text" class="form-control" name="report_type">
+                            <input type="text" class="form-control" name="report_type" placeholder="title" required>
                         </div>
                         <div class="col-12">
                             <label for="inputName4" class="form-label">Report Description</label>
-                            <input type="text" class="form-control" name="report_description" placeholder="des">
+                            <input type="text" class="form-control" name="report_description" placeholder="details" required>
                         </div>
                         <div class="col-12">
                             <label for="inputName4" class="form-label">Report Solution</label>
-                            <input type="text" class="form-control" name="report_solution">
+                            <input type="text" class="form-control" name="report_solution" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="inputNumber" class="form-label">File Upload</label>
+                            <input class="form-control" type="file" name="report_file">
                         </div>
                         <div class="col-sm-6">
                             <label for="inputName5" class="form-label">Report Status</label>
-                            <select class="form-select" name="report_status" aria-label="Default select example">
+                            <select class="form-select" name="report_status" aria-label="Default select example" required>
                                 <option selected>Select...</option>
                                 <option value="In Investigation">In Investigation</option>
                                 <option value="Resolved">Resolved</option>

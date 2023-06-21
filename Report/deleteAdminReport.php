@@ -4,7 +4,7 @@ include("connection.php");
 if (isset($_GET['R_ID'])) {
   $reportID = $_GET['R_ID'];
 
-  $sql = "DELETE FROM report WHERE R_ID = $reportID";
+  $sql = "DELETE FROM admin_report_list WHERE R_ID = $reportID";
 
   if (mysqli_query($db, $sql)) {
     // Deletion successful

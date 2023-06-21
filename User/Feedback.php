@@ -1,3 +1,8 @@
+<?php
+include("../dbconnect.php");
+session_start();
+include_once '../module1/sessionAdmin.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -236,10 +241,14 @@ input[type=button]{
                 <li><a class="nav-link" href="../User/UserHomepage.php">Home</a></li>
                 <li><a class="nav-link" href="../User/UserAccountProfile.php">Account Profile</a></li>
                 <li><a class="nav-link active" href="../User/UserDiscussionBoard.php">Discussion Board</a></li>
+<<<<<<< HEAD
                 <li><a class="nav-link" href="../Complaint/UserComplaint.php"Complaint</a></li>
+=======
+                <li><a class="nav-link" href="../Complaint/UserComplaint.php">Complaint</a></li>
+>>>>>>> 6cff52b188c20bffff7d1f4e0852086689d77e5b
                 <li><a class="nav-link" href="../User/TotalPost.php">Total Post</a></li>
                 <li><a class="nav-link" href="../User/PostReport.php">Post Report</a></li>
-                <li><a class="nav-link" href="../login.php">Log Out</a></li>
+                <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
             </ul>
         </nav>
 </div>

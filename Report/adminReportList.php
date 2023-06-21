@@ -287,7 +287,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="../Complaint/adminComplaintList.php">
           <i class="bi bi-grid"></i>
           <span>Complaint Menu</span>
         </a>
@@ -348,7 +348,7 @@
     <?php
     include("connection.php");
 
-    $query = "SELECT COUNT(*) AS total_reports FROM report";
+    $query = "SELECT COUNT(*) AS total_reports FROM admin_report_list";
     $result = mysqli_query($db, $query) or die("Query failed: " . mysqli_error($db));
 
     $result && mysqli_num_rows($result);
@@ -366,46 +366,17 @@
     </div><!-- End Page Title -->
 
     <section class="section">
-      <label for="inputState" class="form-label">Sorted By:</label>
-      <div class="row">
-        <div class="col-md-2">
-          <select id="inputState" class="form-select">
-            <option selected>Day</option>
-            <option>...</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <select id="inputState" class="form-select">
-            <option selected>Week</option>
-            <option>...</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <select id="inputState" class="form-select">
-            <option selected>Month</option>
-            <option>...</option>
-          </select>
-        </div>
-      </div>
-      <br>
-
-
-    </section>
-    <section class="section">
       <div class="row">
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Admin Report</h5>
+              <h5 class="card-title">Admin Report Information</h5>
               <p>
                 <?php
-                echo "Total reports = " . $total_reports;
+                echo "Total admin reports in database = " . $total_reports;
                 ?>
               </p>
-
-              <a class="btn btn-primary" href="../Report/adminReportForm.php">Create</a>
-              <a class="btn btn-primary" href="../Report/adminReportForm.php">Create</a>
-               
+              <a class="btn btn-primary" href="../Report/adminReportForm.php">Create report</a>   
             </div>
           </div>
           <div class="card">
@@ -425,7 +396,7 @@
                 <tbody>
                   <?php
                   include("connection.php");
-                  $sql = "SELECT R_ID, report_type, report_description, report_solution, report_status FROM report";
+                  $sql = "SELECT R_ID, report_type, report_description, report_solution, report_status FROM admin_report_list";
 
                   $result = mysqli_query($db, $sql) or die("Query failed: " . mysqli_error($db));
                   if ($result->num_rows > 0) {

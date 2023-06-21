@@ -286,7 +286,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="index.html">
+                <a class="nav-link collapsed" href="../Complaint/adminComplaintList.php">
                     <i class="bi bi-grid"></i>
                     <span>Complaint Menu</span>
                 </a>
@@ -362,8 +362,6 @@
         $total_posts = $row["total_posts"];
 
         $engagementRate = $total_posts / $total_users * 100;
-
-        // Assuming you have already established a database connection
 
         // Get the june month and current year
         $targetMonth = '06'; //June
@@ -536,7 +534,7 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
         </section>
 
     </main><!-- End #main -->
