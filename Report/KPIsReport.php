@@ -379,6 +379,27 @@
       return $userCount;
     }
 
+    function getCountOfPostsByMonth($month)
+    {
+      global $db;
+
+      // Get the current year
+      $currentYear = date('Y');
+
+      // Construct the start and end dates of the selected month
+      $startDate = $currentYear . '-' . $month . '-01';
+      $endDate = $currentYear . '-' . $month . '-31';
+
+      // Query to count the users within the specified month
+      $query = "SELECT COUNT(*) AS post_count FROM post WHERE post_timestamp BETWEEN '$startDate' AND '$endDate'";
+      $result = mysqli_query($db, $query);
+
+      $result && mysqli_num_rows($result);
+      $row = mysqli_fetch_assoc($result);
+      $postCount = $row['post_count'];
+
+      return $postCount;
+    }
     $query = "SELECT COUNT(*) AS total_users FROM user";
     $result = mysqli_query($db, $query) or die("Query failed: " . mysqli_error($db));
 
@@ -393,9 +414,10 @@
     $row = mysqli_fetch_assoc($result);
     $total_posts = $row["total_posts"];
 
+    $postCount = getCountOfPostsByMonth($_POST['month']);
     $userCount = getCountOfUsersByMonth($_POST['month']);
     if ($userCount > 0) {
-      $engagementRate = $total_posts / $userCount * 100;
+      $engagementRate = $postCount / $userCount * 100;
     } else {
       $engagementRate = NULL;
     }
@@ -407,6 +429,7 @@
     }
 
     $activeUsersCount = getCountOfUsersByMonth($targetMonth);
+    $activePostsCount = getCountOfPostsByMonth($targetMonth);
 
     $retentionRate = $activeUsersCount / $total_users * 100;
     ?>
@@ -448,10 +471,10 @@
       <br>
       <div>
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="card info-card sales-card">
               <div class="card-body">
-                <h5 class="card-title">Total Users <span> | Selected month</span></h5>
+                <h5 class="card-title">Total Users <span> | All</span></h5>
                 <div class="d-flex align-items-center">
                   <div class="ps-3" style="color: red;">
                     <h3><?php echo $total_users ?></h3>
@@ -460,7 +483,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="card info-card sales-card">
               <div class="card-body">
                 <h5 class="card-title">Active Users <span> | Selected month</span></h5>
@@ -472,13 +495,25 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="card info-card sales-card">
               <div class="card-body">
-                <h5 class="card-title">Total Posts <span> | Selected month</span></h5>
+                <h5 class="card-title">Total Posts <span> | All</span></h5>
                 <div class="d-flex align-items-center">
                   <div class="ps-3" style="color: blue;">
                     <h3><?php echo $total_posts ?></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Active Posts <span> | Selected month</span></h5>
+                <div class="d-flex align-items-center">
+                  <div class="ps-3" style="color: orange;">
+                    <h3><?php echo $activePostsCount ?></h3>
                   </div>
                 </div>
               </div>
