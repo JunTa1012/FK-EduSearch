@@ -368,13 +368,14 @@ include_once '../module1/sessionAdmin.php';
                     include("connection.php");
                     if (isset($_POST["submit"])) {
                         //get POST Data
+                        $Admin_ID = $_POST["Admin_ID"];
                         $report_type = $_POST["report_type"];
                         $report_description = $_POST["report_description"];
                         $report_solution = $_POST["report_solution"];
                         $report_status = $_POST["report_status"];
 
-                        $sql = "INSERT INTO admin_report_list (R_ID, report_type, report_description, report_solution, report_status) VALUES('$R_ID', '$report_type', '$report_description', '$report_solution', '$report_status') ";
-
+                        $sql = "INSERT INTO admin_report_list (R_ID, report_type, report_description, report_solution, report_status, Admin_ID) VALUES('$R_ID', '$report_type', '$report_description', '$report_solution', '$report_status' ,'$Admin_ID') ";
+                        
                         if (mysqli_query($db, $sql)) {
                             $message = "You have create an admin report";
                             echo "<script>alert('$message');</script>";
@@ -445,6 +446,7 @@ include_once '../module1/sessionAdmin.php';
                                 <option value="On Hold">On Hold</option>
                             </select>
                         </div>
+                        <input type="hidden" name="Admin_ID" value="1">
                         <div class="text-center">
                             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                             <button type="reset" class="btn btn-secondary">Reset</button>
