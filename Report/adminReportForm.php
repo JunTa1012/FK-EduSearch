@@ -274,7 +274,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="index.html">
+                <a class="nav-link collapsed" href="../module1/AdminHomepage.php">
                     <i class="bi bi-grid"></i>
                     <span>Home</span>
                 </a>
