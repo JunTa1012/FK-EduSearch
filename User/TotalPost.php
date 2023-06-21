@@ -143,27 +143,30 @@ include_once '../module1/sessionAdmin.php';
                 }
 
 
-                .pagination {
-                     display: inline-block;
+                table{
+                    width:900px;
                 }
 
-                .pagination a {
-                    color: black;
-                    float: left;
-                    padding: 8px 16px;
-                    text-decoration: none;
-                    transition: background-color .3s;
-                    border: 1px solid #ddd;
+                th{
+                   background-color:lightblue;
+                   padding:10px 10px;
                 }
 
-                .pagination a.active {
-                    background-color: #4CAF50;
-                    color: white;
-                    border: 1px solid #4CAF50;
+                td{
+                    background-color:lightgoldenrodyellow;
+                    padding: 10px 10px;
                 }
-
-                .pagination a:hover:not(.active) {background-color: #CBD8FA;}
               
+                button, select{
+                    padding:10px 10px;
+                    background-color: lightskyblue;
+                    border-radius: 5px;
+                }
+
+                button[value="Month"]{
+                    background-color: blue;
+                    color:white;
+                }
         </style>
     </head>
 
@@ -211,11 +214,11 @@ include_once '../module1/sessionAdmin.php';
             </div>
          <!-- main content (right side) -->
         <div id="column main-content">
-      
+      <br>
           <label>Group By: </label>
             <button type ="submit" name="Submit" value="Days" class= "button">Days</button>
             
-            <select id="Week">
+            <select id="Week" name="Week">
             <option value="" disabled>Week</option>
             <option value="Week1">Week 1</option>
             <option value="Week2">Week 2</option>
@@ -226,23 +229,34 @@ include_once '../module1/sessionAdmin.php';
             <button type ="submit" name="Submit" value="Month" class= "button">Month</button>
 
             <button type ="submit" name="Submit" value="Calculate" class= "button">Calculate</button>
+           <br>
+           <?php 
+        include'../dbconnect.php';
 
+        $sql = "SELECT MONTHNAME(post_date) as MonthDetails,
+        count(post_ID) as Total,
+        post_Category as Category
+        FROM post GROUP BY MONTH(post_date), post_category";
+
+                $result = $conn->query($sql);
+        ?>
             
-         
+         <br>
         <table>
             <tr><th>Month</th><th>Type Of Posts</th><th>Total Number Of Posts</th></tr>
-            <tr><td rowspan="5">January</td>
-           <td>Software Engineering</td><td>Artificial Intelligence And Machine Learning</td><td>Systems And Networking</td><td>Human Computer Interaction</td><td>Graphics And Multimedia</td></tr>
-            <tr><td colspan="3">Total</td></tr>
+           <?php while ($row = $result->fetch_object()): ?>
+            <tr><td><?php echo $row->MonthDetails; ?></td>
+            <td><?php echo $row->Category; ?></td>
+            <td><?php echo $row->Total; ?></td></tr>
+            <?php endwhile; ?>
+            <?php 
+            include'../dbconnect.php';
+            $sql = "SELECT COUNT(post_ID) as AllTotal FROM post";
+            $result = $conn->query($sql);
+            ?>
+            <tr><th colspan=2>Total</th><td><?php while ($row = $result->fetch_object()): ?><?php echo $row->AllTotal; ?><?php endwhile; ?></td></tr>
         </table>
 
-        <a href="../User/DiscussionBoard.php">&laquo; Home</a>
-        <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#" class="active">1</a>
-            <a href="#" >2</a>
-            <a href="#">&raquo;</a>
-            </div>
 
         </div>
 

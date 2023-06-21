@@ -1,9 +1,13 @@
+<<<<<<< HEAD
+<<!DOCTYPE html>
+=======
 <?php
 include("../dbconnect.php");
 session_start();
 include_once '../module1/sessionAdmin.php';
 ?>
 <!DOCTYPE html>
+>>>>>>> 6cff52b188c20bffff7d1f4e0852086689d77e5b
 <html>
     <head>
         <meta charset="UTF-8">

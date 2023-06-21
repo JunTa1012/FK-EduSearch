@@ -150,27 +150,10 @@ include_once '../module1/sessionAdmin.php';
 
                 }
 
-                .pagination {
-                     display: inline-block;
-                }
+                table,tr,td{
+                    border:1px solid;
+                    padding:10px 10px;
 
-                .pagination a {
-                    color: black;
-                    float: left;
-                    padding: 8px 16px;
-                    text-decoration: none;
-                    transition: background-color .3s;
-                    border: 1px solid #ddd;
-                }
-
-                .pagination a.active {
-                    background-color: #4CAF50;
-                    color: white;
-                    border: 1px solid #4CAF50;
-                }
-
-                .pagination a:hover:not(.active) {
-                    background-color: #CBD8FA;
                 }
               
         </style>
@@ -224,24 +207,20 @@ include_once '../module1/sessionAdmin.php';
           <div class="header2"> <h1>Rating And Feedback</h1> </div>
           
         <table>
-            <tr><th>Post Questions</th><th>Date</th><th>Time</th><th>Rating And Feedback (Action)</th><th>Expert ID</th></tr>
-            <tr><td>How Can I Get Resources For Research?<br>Software Engineering</td><td>16 April 2023</td><td>8:00 A.M.</td><td><button onclick="document.location='../User/Rating.php'">Rating</button> <button onclick="document.location='../User/Feedback.php'">Feedback</button></td><td>EP00001</td></tr>
-            <tr><td>Are My Datasets Suitable For Research?<br>Human Computer Interaction</td><td>16 April 2023</td><td>10:30 P.M.</td><td><button onclick="document.location='../User/Rating.php'">Rating</button> <button onclick="document.location='../User/Feedback.php'">Feedback</button></td><td>EP00002</td></tr>
-            <tr><td>How Can I Do Fuzzy Logic Research?<br>Artificial Intelligence And Machine Learning</td><td>16 April 2023</td><td>11:30 P.M.</td><td><button onclick="document.location='../User/Rating.php'">Rating</button> <button onclick="document.location='../User/Feedback.php'">Feedback</button></td><td>EP00003</td></tr>
-            <tr><td>What Element Must Include In Graphics?<br>Graphics And Multimedia</td><td>17 April 2023</td><td>10:00 P.M.</td><td><button onclick="document.location='../User/Rating.php'">Rating</button> <button onclick="document.location='../User/Feedback.php'">Feedback</button></td><td>EP00004</td></tr>
-        
+        <?php
+        include "../User/php/readUserPost.php";
+        ?>
+        <?php if (mysqli_num_rows($result)) { ?>
+        <?php 
+         $i = 0;
+          while ($rows = mysqli_fetch_assoc($result)){
+         $i++;
+         ?>
+            <tr><td><?=$i?></td><td><?=$rows['post_title']?></td><td><?php echo $rows['post_date']?></td><td><?php echo $rows['post_time'] ?></td><td><a href="../User/Rating.php?Post_ID=<?=$rows['Post_ID']?>">Rating</a><button onclick="window.location='../User/Feedback.php?Post_ID=<?=$rows['Post_ID']?>'">Feedback</button></td>
+            
+            <?php } ?>
         </table>
-        <div class="pagination">
-            <a href="../User/DiscussionBoard.php">&laquo;</a>
-            <a href="#" class="active">1</a>
-            <a href="#" >2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">&raquo;</a>
-            </div>
-
+        <?php } ?>
         </div>
 
 
