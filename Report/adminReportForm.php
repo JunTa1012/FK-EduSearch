@@ -374,7 +374,7 @@ include_once '../module1/sessionAdmin.php';
                         $report_solution = $_POST["report_solution"];
                         $report_status = $_POST["report_status"];
 
-                        $sql = "INSERT INTO admin_report_list (R_ID, report_type, report_description, report_solution, report_status, Admin_ID) VALUES('$R_ID', '$report_type', '$report_description', '$report_solution', '$report_status' ,'$Admin_ID') ";
+                        $sql = "INSERT INTO admin_report_list (report_type, report_description, report_solution, report_status, Admin_ID) VALUES('$report_type', '$report_description', '$report_solution', '$report_status' ,'$Admin_ID') ";
                         
                         if (mysqli_query($db, $sql)) {
                             $message = "You have create an admin report";

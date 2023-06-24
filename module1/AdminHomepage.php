@@ -239,7 +239,7 @@ color: #ffffff;
                 <li><a class="nav-link" href="User/UserComplaint.php">User Report</a></li>
                 <li><a class="nav-link" href="../Report/generalKPIsReport.php">Admin Report</a></li>
                 <li><a class="nav-link " href="AdminUserLists.php">User Lists</a></li>
-                <li><a class="nav-link" href="Logout.php">Log Out</a></li>
+                <li><a class="nav-link" href="logout.php">Log Out</a></li>
             </ul>
         </nav>
     </div>

@@ -1,7 +1,7 @@
 <?php
 require 'config.php';
 if(!empty($_SESSION["id"])){
-  header("Location: ../Complaint/UserAccountProfile.php");
+  header("Location: ../User/UserAccountProfile.php");
 }
 if(isset($_POST["submit"])){
   $username = $_POST["username"];
