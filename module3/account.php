@@ -3,6 +3,12 @@ session_start();
 // Database connection settings
 include("link/dbconnection.php");
 include '../module1/sessionExpert.php';
+$expertid = 1;
+$sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.Expert_ID WHERE pl.Expert_ID = $expertid";
+$result = $conn->query($sql);
+$rows = mysqli_num_rows($result);
+$row = mysqli_fetch_assoc($result);
+$expert_name = $row['expert_name'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,7 +39,7 @@ include '../module1/sessionExpert.php';
         <!-- user profile -->
         <div>
             <!-- <a class="icon-link" href="#"> -->
-            <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"></p>
+            <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;"><?php echo $expert_name; ?> <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"></p>
         </div>
 
     </div>
@@ -51,25 +57,24 @@ include '../module1/sessionExpert.php';
         </ul>
     </nav>
     <!-- content -->
-<?php
-$sql = "SELECT * FROM expert";
-$result = $conn->query($sql);
+    <?php
+    $sql = "SELECT * FROM expert";
+    $result = $conn->query($sql);
 
-while ($row = mysqli_fetch_assoc($result)) {
-    $Expert_ID = $row['Expert_ID'];
-    $expert_name = $row['expert_name'];
-    $expert_email = $row['expert_email'];
-    $expert_profile = $row['expert_profile'];
-    $expert_password = $row['expert_password'];
-    $expert_phoneNum = $row['expert_phoneNum'];
-    $expert_researchArea1 = $row['expert_researchArea1'];
-    $expert_researchArea2 = $row['expert_researchArea2'];
-    $expert_researchArea3 = $row['expert_researchArea3'];
-    $expert_academicStatus = $row['expert_academicStatus'];
-    $expert_socialAcc1 = $row['expert_socialAcc1'];
-    $expert_socialAcc2 = $row['expert_socialAcc2'];
-    $expert_CV = $row['expert_CV'];
-}?>
+    while ($row = mysqli_fetch_assoc($result)) {
+        $Expert_ID = $row['Expert_ID'];
+        $expert_name = $row['expert_name'];
+        $expert_email = $row['expert_email'];
+        $expert_password = $row['expert_password'];
+        $expert_phoneNum = $row['expert_phoneNum'];
+        $expert_researchArea1 = $row['expert_researchArea1'];
+        $expert_researchArea2 = $row['expert_researchArea2'];
+        $expert_researchArea3 = $row['expert_researchArea3'];
+        $expert_academicStatus = $row['expert_academicStatus'];
+        $expert_socialAcc1 = $row['expert_socialAcc1'];
+        $expert_socialAcc2 = $row['expert_socialAcc2'];
+        $expert_CV = $row['expert_CV'];
+    } ?>
     <div style="margin-top:-550px;padding:5px 5px 5px 5px ;margin-left:255px;font-size:17px;color:white ;background-color:#5D0773;">
         <b>My Profile</b> &nbsp;&nbsp;&nbsp;
         <button style="border:0;padding:2px 5px 5px 5px;"><b><a style="text-decoration:none;color:black;" href="editProfile.php?expert_id=<?php echo $Expert_ID; ?>">Edit Profile</a></b></button>

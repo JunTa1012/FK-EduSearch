@@ -4,6 +4,13 @@ session_start();
 include("link/dbconnection.php");
 include '../module1/sessionExpert.php';
 
+$expertid = 1;
+$sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.Expert_ID WHERE pl.Expert_ID = $expertid";
+$result = $conn->query($sql);
+$rows = mysqli_num_rows($result);
+$row = mysqli_fetch_assoc($result);
+$expert_name = $row['expert_name'];
+
 // Check if a post ID is provided
 if (isset($_GET['post_id'])) {
   $Post_ID = $_GET['post_id'];
@@ -19,7 +26,7 @@ if (isset($_GET['post_id'])) {
     $post_content = $row['post_content'];
     $postStatus = $row['postStatus'];
     $expertAnswer = $row['expertAnswer'];
-    $post_dateTime = $row['post_dateTime'];
+    $post_date = $row['post_date'];
   } else {
     echo "Post not found.";
     exit;
@@ -45,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // You can handle the error scenario as per your requirements
   }
 }
-
 
 $conn->close();
 ?>
@@ -74,7 +80,7 @@ $conn->close();
     </div>
     <!-- user profile -->
     <div>
-      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
+      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;"><?php echo $expert_name; ?><img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
     </div>
   </div>
 
@@ -101,7 +107,7 @@ $conn->close();
 
   <div class="form-group" style="margin-left:260px;margin-top:20px">
     <label id="Description" name="Description">User: Abby</label><br>
-    <label id="Date" name="Date">Date: <?php echo $post_dateTime; ?></label><br>
+    <label id="Date" name="Date">Date: <?php echo $post_date; ?></label><br>
   </div>
   <form action="updateNotification.php?post_id=<?php echo $Post_ID; ?>" method="POST">
     <div class="form-group" style="margin-left:260px;margin-top:20px">

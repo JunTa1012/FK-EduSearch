@@ -1,8 +1,8 @@
 <?php
-session_start();
 // Database connection settings
-include("link/dbconnection.php");
-include '../module1/sessionExpert.php';
+include './link/dbconnection.php';
+session_start();
+
 $expertid = 1;
 $sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.Expert_ID WHERE pl.Expert_ID = $expertid";
 $result = $conn->query($sql);
@@ -40,7 +40,7 @@ $expert_name = $row['expert_name'];
     </div>
     <!-- user profile -->
     <div>
-      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"> </p>
+      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;"><?php echo $expert_name; ?> <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"> </p>
     </div>
   </div>
 
@@ -92,19 +92,19 @@ $expert_name = $row['expert_name'];
             $sql = "SELECT publication_date, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY Publication_ID ORDER BY publication_date ASC";
             $result = $conn->query($sql);
 
-            
 
-              $query = "SELECT MONTHNAME(publication_date) AS month, count(Publication_ID) AS sum FROM publication_list GROUP BY MONTH(publication_date)";
-              $result = mysqli_query($conn, $query);
-              $num_row = mysqli_num_rows($result);
-              $month = array();
-              $sum = array();
-              for ($i = 0; $i < $num_row; $i++) {
-                while ($row = mysqli_fetch_array($result, 1)) {
-                  array_push($month, $row['month']);
-                  array_push($sum, $row['sum']);
-                }
+
+            $query = "SELECT MONTHNAME(publication_date) AS month, count(Publication_ID) AS sum FROM publication_list GROUP BY MONTH(publication_date)";
+            $result = mysqli_query($conn, $query);
+            $num_row = mysqli_num_rows($result);
+            $month = array();
+            $sum = array();
+            for ($i = 0; $i < $num_row; $i++) {
+              while ($row = mysqli_fetch_array($result, 1)) {
+                array_push($month, $row['month']);
+                array_push($sum, $row['sum']);
               }
+            }
             while ($row = mysqli_fetch_assoc($result)) {
               $date = $row['publication_date'];
               $publication_type = $row['publication_type'];
@@ -132,21 +132,21 @@ $expert_name = $row['expert_name'];
             </tr>
           </thead>
           <tbody>
-            <?php       
+            <?php
             $sql = "SELECT DAYNAME(publication_date) AS hari, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY DAYNAME(publication_date), publication_type ORDER BY publication_date DESC";
             $result = $conn->query($sql);
-           
+
             while ($row = mysqli_fetch_assoc($result)) {
               $date = $row['hari'];
               $publication_type = $row['publication_type'];
               $totalPublication = $row['Total_Publication'];
             ?>
-              <tr >
+              <tr>
                 <td><?php echo $date; ?></td>
                 <td><?php echo $publication_type; ?></td>
                 <td><?php echo $totalPublication; ?></td>
               </tr>
-            <?php } ?>          
+            <?php } ?>
           </tbody>
         </table>
         <table id="publicationTableWeek">
@@ -162,7 +162,7 @@ $expert_name = $row['expert_name'];
             // Get the total number of Publications
             $sql = "SELECT WEEK(publication_date) AS minggu, publication_type, COUNT(*) AS Total_Publication FROM publication_list WHERE Expert_ID = $expertid GROUP BY WEEK(publication_date), publication_type";
             $result = $conn->query($sql);
-           
+
             while ($row = mysqli_fetch_assoc($result)) {
               $date = $row['minggu'];
               $publication_type = $row['publication_type'];

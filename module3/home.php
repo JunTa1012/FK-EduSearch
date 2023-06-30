@@ -3,6 +3,13 @@ session_start();
 // Database connection settings
 include("link/dbconnection.php");
 include '../module1/sessionExpert.php';
+
+$expertid = 1;
+$sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.Expert_ID WHERE pl.Expert_ID = $expertid";
+$result = $conn->query($sql);
+$rows = mysqli_num_rows($result);
+$row = mysqli_fetch_assoc($result);
+$expert_name = $row['expert_name'];
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +39,7 @@ include '../module1/sessionExpert.php';
     </div>
     <!-- user profile -->
     <div>
-      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert<img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
+      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;"><?php echo $expert_name; ?><img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
     </div>
   </div>
   <!-- </a> -->

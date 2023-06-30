@@ -6,6 +6,13 @@ include '../module1/sessionExpert.php';
 date_default_timezone_set('Asia/Kuala_Lumpur');
 $publicationDate = date('Y-m-d'); // Get the current date
 
+$expertid = 1;
+$sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.Expert_ID WHERE pl.Expert_ID = $expertid";
+$result = $conn->query($sql);
+$rows = mysqli_num_rows($result);
+$row = mysqli_fetch_assoc($result);
+$expert_name = $row['expert_name'];
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Get form data
@@ -32,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <!-- user profile -->
     <div>
-      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"></p>
+      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;"><?php echo $expert_name; ?><img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"></p>
     </div>
   </div>
 
