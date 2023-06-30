@@ -19,7 +19,7 @@ if (isset($_GET['post_id'])) {
     $post_content = $row['post_content'];
     $postStatus = $row['postStatus'];
     $expertAnswer = $row['expertAnswer'];
-    $post_date = $row['post_date'];
+    $post_dateTime = $row['post_dateTime'];
   } else {
     echo "Post not found.";
     exit;
@@ -91,7 +91,7 @@ $conn->close();
   </nav>
 
   <!-- main content  -->
-  <p style="padding-left:5px;padding-top:7px;font-size:20px;margin-left:255px;color:black;margin-top: -550px;"><b><img style="width:25px;" src="image/edit.png" alt="Edit"> Add answer</b> </p><br>
+  <p style="padding-left:5px;padding-top:7px;font-size:20px;margin-left:255px;color:black;margin-top: -770px;"><b><img style="width:25px;" src="image/edit.png" alt="Edit"> Add answer</b> </p><br>
 
   <div style=" padding:10px 5px 10px 5px;margin-left:255px;font-size:17px;color:white ;background-color:#B681C1;">
     <b> &nbsp;Expert Answer Box</b>
@@ -100,7 +100,7 @@ $conn->close();
 
   <div class="form-group" style="margin-left:260px;margin-top:20px">
     <label id="Description" name="Description">User: Abby</label><br>
-    <label id="Date" name="Date">Date: <?php echo $post_date; ?></label><br>
+    <label id="Date" name="Date">Date: <?php echo $post_dateTime; ?></label><br>
   </div>
   <form action="updateNotification.php?post_id=<?php echo $Post_ID; ?>" method="POST">
     <div class="form-group" style="margin-left:260px;margin-top:20px">

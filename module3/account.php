@@ -59,7 +59,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     $Expert_ID = $row['Expert_ID'];
     $expert_name = $row['expert_name'];
     $expert_email = $row['expert_email'];
-    $expert_profile = $row['expert_profile'];
     $expert_password = $row['expert_password'];
     $expert_phoneNum = $row['expert_phoneNum'];
     $expert_researchArea1 = $row['expert_researchArea1'];
