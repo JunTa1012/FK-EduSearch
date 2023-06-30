@@ -46,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 
-
 $conn->close();
 ?>
 
@@ -92,7 +91,7 @@ $conn->close();
   </nav>
 
   <!-- main content  -->
-  <p style="padding-left:5px;padding-top:7px;font-size:20px;margin-left:255px;color:black;margin-top: -550px;"><b><img style="width:25px;" src="image/edit.png" alt="Edit"> Add answer</b> </p><br>
+  <p style="padding-left:5px;padding-top:7px;font-size:20px;margin-left:255px;color:black;margin-top: -770px;"><b><img style="width:25px;" src="image/edit.png" alt="Edit"> Add answer</b> </p><br>
 
   <div style=" padding:10px 5px 10px 5px;margin-left:255px;font-size:17px;color:white ;background-color:#B681C1;">
     <b> &nbsp;Expert Answer Box</b>
