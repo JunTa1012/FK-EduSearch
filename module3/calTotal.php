@@ -78,8 +78,8 @@ $expert_name = $row['expert_name'];
         <table id="publicationTableAll" style="background-color:#F7F0F9;width:100%;">
           <thead>
             <tr>
-              <th style="background-color:#5A0068;color:white;">Date</th>
-              <th style="background-color:#5A0068;color:white;">Publication Type</th>
+              <th style="background-color:#5A0068;color:white;"></th>
+              <th style="background-color:#5A0068;color:white;"></th>
               <th style="background-color:#5A0068;color:white;">Number of Publications</th>
             </tr>
           </thead>
