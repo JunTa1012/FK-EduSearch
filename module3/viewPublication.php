@@ -3,6 +3,7 @@ session_start();
 // Database connection settings
 include("link/dbconnection.php");
 include '../module1/sessionExpert.php';
+
 // Check if a publication ID is provided
 $expertid = 1;
 $sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS u ON pl.Expert_ID = e.Exprt_ID WHERE pl.Expert_ID = $expertid";
@@ -11,6 +12,7 @@ if (isset($_GET['publication_id'])) {
   // Retrieve the publication details from the database
   $sql = "SELECT * FROM publication_list WHERE Publication_ID = $publicationId";
   $result = $conn->query($sql);
+  $expert_name = $row['expert_name'];
 
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
@@ -57,7 +59,7 @@ $conn->close();
     </div>
     <!-- user profile -->
     <div>
-      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"></p>
+      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;"><?php echo $expert_name; ?><img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture"></p>
     </div>
   </div>
 

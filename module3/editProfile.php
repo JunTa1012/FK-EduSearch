@@ -4,6 +4,13 @@ session_start();
 include("link/dbconnection.php");
 include '../module1/sessionExpert.php';
 
+$expertid = 1;
+$sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.Expert_ID WHERE pl.Expert_ID = $expertid";
+$result = $conn->query($sql);
+$rows = mysqli_num_rows($result);
+$row = mysqli_fetch_assoc($result);
+$expert_name = $row['expert_name'];
+
 // Check if a Expert_ID is provided
 if (isset($_GET['expert_id'])) {
   $expertID = $_GET['expert_id'];
@@ -91,7 +98,7 @@ $conn->close();
     <!-- user profile -->
     <div>
       <!-- <a class="icon-link" href="#"> -->
-      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;">Expert <img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
+      <p style="margin-right:10px ;margin-left:3px ;margin-top:125px;margin-bottom:10px;"><?php echo $expert_name; ?><img style="width:30px;height:auto;" src="image/woman.png" alt="profile picture" </p>
 
 
         <!-- </a> -->
@@ -114,7 +121,7 @@ $conn->close();
 
   <!-- content -->
   <!-- <div style="margin-left:300px;margin-top: -450px;background-color:white;min-height: fit-content;">Edit Profile</div> -->
-  <p style="padding-left:5px;padding-top:5px;font-size:20px;margin-left:255px;color:black;margin-top: -550px;"><b>Edit Profile</b> </p><br>
+  <p style="padding-left:5px;padding-top:5px;font-size:20px;margin-left:255px;color:black;margin-top: -580px;"><b>Edit Profile</b> </p><br>
   <!-- <p style="color:aliceblue;background-color: #B681C1;margin-top: -600px;"><b>My Profile</b></p> -->
   <form action="editProfile.php?expert_id=<?php echo $expertID; ?>" method="POST">
     <table style="color:#5D0773;padding-left:5px;padding-top:5px;margin-left:255px;">
