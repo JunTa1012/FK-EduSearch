@@ -401,6 +401,15 @@ include_once '../module1/sessionAdmin.php';
                 <tbody>
                   <?php
                   include("connection.php");
+                  $Admin_ID = 1;
+                  $sql = "SELECT r.*, a.admin_name FROM admin_report_list AS r JOIN admin AS a ON a.Admin_ID = r.Admin_ID WHERE a.Admin_ID = $Admin_ID";
+                  $result = mysqli_query($db, $sql) or die("Query failed: " . mysqli_error($db));
+                  $rows = mysqli_num_rows($result);
+                  $row = mysqli_fetch_assoc($result);
+                  $admin_name = $row['admin_name'];
+
+                  echo  "Responsible admin name : " .  $row['admin_name'] ;
+                  
                   $sql = "SELECT R_ID, report_type, report_description, report_solution, report_status FROM admin_report_list";
 
                   $result = mysqli_query($db, $sql) or die("Query failed: " . mysqli_error($db));

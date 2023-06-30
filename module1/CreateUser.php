@@ -10,7 +10,7 @@
 		$user_type = $_POST['val-user-type'];
 		$user_academic_status = $_POST['val-academic-status'];
 		$user_social = $_POST['user_social'];
-		$sql = "INSERT INTO user (user_name, user_password, user_type, user_academicStatus, user_socialMediaAcc, user_email, user_phoneNum, user_researchArea) VALUES ('$user_name', '$user_password', '$user_type', '$user_academic_status', '$user_social', '$email', '$phonenumber', '$researcharea')";
+		$sql = "INSERT INTO user (user_name, user_password, user_type, user_academicStatus, user_socialMediaAcc, user_email, user_phoneNum, user_researchArea, ) VALUES ('$user_name', '$user_password', '$user_type', '$user_academic_status', '$user_social', '$email', '$phonenumber', '$researcharea')";
 
 		//use for MySQLi OOP
         if ($conn->query($sql) === TRUE) {
