@@ -1,8 +1,15 @@
 <?php
 include("../dbconnect.php");
 session_start();
-include_once '../module1/sessionAdmin.php';
-?>
+include_once '../module1/sessionUser.php';
+
+if(!empty($_SESSION["id"])){
+    $id = $_SESSION["id"];
+    $result = mysqli_query($conn, "SELECT * FROM user WHERE User_ID = '$id'");
+    $row = mysqli_fetch_assoc($result);
+  }
+  
+  ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -235,7 +242,7 @@ include_once '../module1/sessionAdmin.php';
          <!-- navigation bar (left side) -->
          <nav id="nav-bar">
             <ul>
-                <li><a class="nav-link" href="#">Home</a></li>
+                <li><a class="nav-link" href="../User/UserHomepage.php">Home</a></li>
                 <li><a class="nav-link active" href="../User/UserAccountProfile.php">Account Profile</a></li>
                 <li><a class="nav-link" href="../User/DiscussionBoard.php">Discussion Board</a></li>
                 <li><a class="nav-link" href="../Complaint/UserComplaint.php">Complaint</a></li>
@@ -249,30 +256,31 @@ include_once '../module1/sessionAdmin.php';
         <div id="column main-content">
           <div class="header"> <h1>User Profile Details In Getting Approve Process</h1></div>
            <table>
-            <tr><td>Area Of Research : Software Engineering <i class='far fa-eye' style='font-size:36px'></i></td></tr>
-            <tr><th><i class='far fa-edit' style='font-size:36px'></i>Already Validate And Approve By Admin</th></tr>
+           <?php 
+            $select = mysqli_query($conn, "SELECT * FROM `user` WHERE User_ID ='$id' ")
+            or die('query failed');
+            if(mysqli_num_rows($select) > 0){
+              $fetch = mysqli_fetch_assoc($select);
+            }
+            ?>
+           <tr><td><strong>Name :</strong> <?php echo $fetch['user_name'] ?> </td></tr>
             <br>
-            <tr><td>Current Academic Status : PHD  <i class='far fa-eye' style='font-size:36px'></i></td></tr>
-            <tr><th><i class='far fa-edit' style='font-size:36px'></i>Not Validate And Approve By Admin Yet</th></tr>
+            <tr><td><strong>Email : </strong><?php echo $fetch['user_email'] ?> </td></tr>
             <br>
-            <tr><td>Social Media Account : Facebook : Atikah <i class='far fa-eye' style='font-size:36px'></i></td></tr>
-            <tr><th><i class='far fa-edit' style='font-size:36px'></i>Not Validate And Approve By Admin Yet</th></tr>
+            <tr><td><strong>Phone Number : </strong><?php echo $fetch['user_phoneNum'] ?> </td></tr>
+            <br>
+            <tr><td><strong>Area Of Research : </strong><?php echo $fetch['user_researchArea'] ?> </td></tr>
+            <br>
+            <tr><td><strong>Current Academic Status : </strong><?php echo $fetch['user_academicStatus'] ?></td></tr>
+            <br>
+            <tr><td><strong>Social Media Account : </strong><?php echo $fetch['user_socialMediaAcc'] ?></td></tr>
+            <tr><th><i class='far fa-edit' style='font-size:36px'></i><?php echo $fetch['user_ProfileStatus'] ?></th></tr>
             <br>
         
             </table>
 
             <input type="button" name="Back" value="Back" onclick="window.location='../User/UserAccountProfile.php'" >
            <br>
-            <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#" class="active">1</a>
-            <a href="#" >2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">&raquo;</a>
-            </div>
 
         </div>
 

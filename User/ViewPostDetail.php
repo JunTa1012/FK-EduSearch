@@ -1,8 +1,43 @@
 <?php
 include("../dbconnect.php");
 session_start();
-include_once '../module1/sessionAdmin.php';
+include_once '../module1/sessionUser.php';
+$expertid = 1;
+$sql = "SELECT p.*, e.expert_name FROM post AS p JOIN expert AS e ON p.Expert_ID = e.Exprt_ID WHERE p.Expert_ID = $expertid";
+
+if (isset($_GET['Post_ID'])) {
+  $Post_ID = $_GET['Post_ID'];
+  // Retrieve the post details from the database
+  $sql = "SELECT * FROM post WHERE Post_ID = $Post_ID";
+  $result = $conn->query($sql);
+
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $post_title = $row['post_title'];
+    $post_content = $row['post_content'];
+    $post_keyword = $row['post_keyword'];
+    $post_category = $row['post_category'];
+    $post_date = $row['post_date'];
+    $post_time = $row['post_time'];
+    $post_comment = $row['$post_comment'];
+    $user_rating = $row['$user_rating'];
+    $user_feedback = $row['$user_feedback'];
+    $post_likes = $rows['$post_likes'];
+    $expertAnswer = $rows['$expertAnswer'];
+    $expert_name = $rows['expert_name'];
+  } else {
+    echo "Post not found.";
+    exit;
+  }
+} else {
+  echo "No Post ID provided.";
+  exit;
+}
+
+
+$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -215,6 +250,24 @@ include_once '../module1/sessionAdmin.php';
                         
                     }
 
+                    input[type=button]{
+                    background-color: #2e94f3;
+                    float:left;
+                    color:black;
+                    font-size: 15px;
+                    padding: 10px 35px;
+                    border:none;
+                    margin-top: 10px;
+                    border-radius: 10%;
+                }
+
+
+                .header{
+                    background-color: #2e94f3;
+                    color: black;
+                    padding: 10px 8px;
+
+                }
 
 
         </style>
@@ -270,22 +323,24 @@ include_once '../module1/sessionAdmin.php';
         <div id="column main-content">
             <div class="container">
                 <div class="box">
+                <div class="header"> <h1>View Post</h1></div>
+    
         <table>
-            <?php if (mysqli_num_rows($result)) { ?>
-            <tr><th>Post Questions</th><th>Post Category</th><th>Date & Time</th><th>Post Status</th><th>Actions</th></tr>
-          <?php 
-         $i = 0;
-          while ($rows = mysqli_fetch_assoc($result)){
-         $i++;
-         ?>
-            <tr><td><?=$i?></td><td><?=$rows['post_title']?></td><td><?php echo $rows['post_category']?></td><td><?php echo $rows['post_dateTime']?></td><td><?php echo $rows['postStatus']?></td>
-            <td><a href="../User/ViewPostDetail.php"><i class='fas fa-eye' style='font-size:24px;color:darkblue'></i></a>
-            <a href="../User/EditPost.php"><i class='fas fa-edit' style='font-size:24px;color:darkblue'></i></a>
-            <a href="/User/DeletePost.php"><i class='far fa-trash-alt' style='font-size:24px;color:red'></i></a>
-            </td></tr>
-        <?php } ?>
+        <tr><td>Post Title </td> <td> <?php echo $post_title; ?></td></tr>
+        <tr><td>Post Content</td><td><?php echo $post_content; ?></td></tr>
+        <tr><td>Post Keyword</td><td><?php echo $post_keyword; ?></td></tr>
+        <tr><td>Post Category</td><td><?php echo $post_category; ?></td></tr>
+        <tr><td>Post Date</td><td><?php echo $post_date;?></td></tr>
+        <tr><td>Post Time</td><td><?php echo $post_time;?></td></tr>
+        <tr><td>Post Comment</td><td><?php echo $post_comment;?></td></tr>
+        <tr><td>Rating</td><td><?php echo $user_rating;?></td></tr>
+        <tr><td>Feedback</td><td><?php echo $user_feedback; ?></td></tr>
+        <tr><td>Post Likes</td><td><?php echo $post_likes;?></td></tr>
+        <tr><td>expertAnswer</td><td><?php echo $expertAnswer;?></td></tr>
+        <tr><td>expert_name</td><td><?php echo $expert_name;?></td></tr>
+
         </table>
-        <?php } ?>
+        <input type="button" name="Back" value="Back" onclick="window.location='../User/DiscussionBoard.php'" >
         </div>
         </div>
        

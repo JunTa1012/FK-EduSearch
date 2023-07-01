@@ -1,28 +1,48 @@
-<<<<<<< HEAD
 <?php 
-        if (isset($_POST['Submit'])){
+// Check if a post ID is provided 
+if (isset($_GET['Post_ID'])) { 
+    $Post_ID = $_GET['Post_ID']; 
+    // Retrieve the post details from the database 
+    $expertid = 1;
+    $sql = "SELECT p.*, e.expert_name FROM post AS p JOIN expert AS e ON p.Expert_ID = e.Expert_ID WHERE p.Expert_ID = $expertid AND Post_ID = $Post_ID"; 
+    $result = $conn->query($sql);  
+   
+    if ($result->num_rows > 0) { 
+      $row = $result->fetch_assoc();  
+      $post_title = $row['$post_title'];
+      $post_category = $row['$post_category']; 
+      $expertAnswer= $row['$expertAnswer']; 
+      $expert_name= $row['$expert_name'];
+      $user_rating = $row['$user_rating']; 
+    } else { 
+      echo "Post Not Found."; 
+      exit; 
+    } 
+  } else { 
+    echo "No Post ID provided."; 
+    exit; 
+  } 
 
-            include "../../dbconnect.php";
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
 
-            function validate($data){
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
+    $user_rating = mysqli_real_escape_string($conn, $_POST['user_rating']);
 
-            $user_rating = validate($_POST['rating']);
-        
+  
 
                 $sql = "INSERT INTO post(user_rating) 
-                        VALUES ('$user_rating') WHERE Post_ID=$Post_ID";
+                        VALUES ('$user_rating') WHERE Post_ID = $Post_ID";
                 $result = mysqli_query($conn, $sql);
 
-                if($result){
-                    echo "Success";
-                }else{
-                    header("Location:../User/Rating.php?error=unknown error occured&");
-                }
+                if ($conn->query($sql) === true) { 
+                    echo '<script type="text/javascript">';
+                              echo 'alert("Rating inserted Successfully.")';
+                              echo '</script>'; 
+                    header("refresh:1;url=  ../User/ManageRatingAndFeedback.php"); 
+                    // You can redirect the user to a different page or display a success message here 
+                  } else { 
+                    echo "Error inserting rating: "; 
+                    // You can handle the error scenario as per your requirements 
+                  } 
             }
         
         
@@ -30,13 +50,11 @@
 
 
 
-=======
 <?php
 include("../dbconnect.php");
 session_start();
-include_once '../module1/sessionAdmin.php';
+include_once '../module1/sessionUser.php';
 ?>
->>>>>>> 6cff52b188c20bffff7d1f4e0852086689d77e5b
 <!DOCTYPE html>
 <html>
     <head>
@@ -278,11 +296,7 @@ include_once '../module1/sessionAdmin.php';
                 <li><a class="nav-link" href="../User/UserHomepage.php">Home</a></li>
                 <li><a class="nav-link" href="../User/UserAccountProfile.php">Account Profile</a></li>
                 <li><a class="nav-link active" href="../User/DiscussionBoard.php">Discussion Board</a></li>
-<<<<<<< HEAD
-                <li><a class="nav-link" href="../Complaint/UserComplaint.php"">Complaint</a></li>
-=======
                 <li><a class="nav-link" href="../Complaint/UserComplaint.php">Complaint</a></li>
->>>>>>> 6cff52b188c20bffff7d1f4e0852086689d77e5b
                 <li><a class="nav-link" href="../User/TotalPost.php">Total Post</a></li>
                 <li><a class="nav-link" href="../User/PostReport.php">Post Report</a></li>
                 <li><a class="nav-link" href="../module1/logout.php">Log Out</a></li>
@@ -294,13 +308,13 @@ include_once '../module1/sessionAdmin.php';
            <div class="header"><h1>Rating</h1> </div>
           
            <form action="../User/Rating.php?Post_ID=<?php echo $Post_ID;?>" method="POST">
-           
-            <label>Category: </label> <input type="text"  id="post_category" name="topic"><br><br>
-            <label>Question: </label> <input type="text"  id="post_content" name="question"><br><br>
-            <label>Expert's Answer</label> <input type="text"  id="expert_answer" name="expertAns"><br><br>
-            <label>Expert's Name </label> <input type="text"  id="expert_name" name="expertName"><br><br>
-            <label>Rating: </label> <input type="text"  id="user_rating" name="rating"><br><br>
+            <label>Category: </label> <?php echo $post_category;?><br><br>
+            <label>Question: </label> <?php echo $post_title; ?><br><br>
+            <label>Expert's Answer</label> <?php echo $expert_answer; ?><br><br>
+            <label>Expert's Name </label> <?php echo $expert_name; ?><br><br>
+            <label>Rating: </label> <input type="text"  name="user_rating"><br><br>
             <br>
+            <input type="text" name="Post_ID" value="<?=$row['Post_ID']?>" hidden>
            <input type="button" name="back" value="Back" onclick="window.location='../User/ManageRatingAndFeedback.php'">
              <button type ="submit" name="Submit" value="Submit" class= "button">Add</button>
             </form>

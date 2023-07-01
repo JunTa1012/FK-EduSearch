@@ -35,12 +35,12 @@ if(isset($_POST['search'])) {
 
 ?>
 
-=======
+<?php
 include("../dbconnect.php");
 session_start();
-include_once '../module1/sessionAdmin.php';
+include_once '../module1/sessionUser.php';
 ?>
->>>>>>> 6cff52b188c20bffff7d1f4e0852086689d77e5b
+
 <!DOCTYPE html>
 <html>
     <head>

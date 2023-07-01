@@ -1,7 +1,7 @@
 <?php
 include("../dbconnect.php");
 session_start();
-include_once '../module1/sessionAdmin.php';
+include_once '../module1/sessionUser.php';
 ?>
 <!DOCTYPE html>
 <html>

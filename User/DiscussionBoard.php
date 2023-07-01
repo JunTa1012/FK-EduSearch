@@ -1,7 +1,7 @@
 <?php
 include("../dbconnect.php");
 session_start();
-include_once '../module1/sessionAdmin.php';
+include_once '../module1/sessionUser.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -329,7 +329,7 @@ include_once '../module1/sessionAdmin.php';
          $i++;
          ?>
             <tr><td><?=$i?></td><td><?=$rows['post_title']?></td><td><?php echo $rows['post_category']?></td><td><?php echo $rows['post_date'] ?><br><?php echo $rows['post_time']?></td><td><?php echo $rows['postStatus']?></td>
-            <td><a href="../User/ViewPostDetail.php"><i class='fas fa-eye' style='font-size:24px;color:darkblue'></i></a>
+            <td><a href="../User/ViewPostDetail.php?Post_ID=<?=$rows['Post_ID']?>"><i class='fas fa-eye' style='font-size:24px;color:darkblue'></i></a>
             <a href="../User/EditPost.php?Post_ID=<?=$rows['Post_ID']?>"><i class='fas fa-edit' style='font-size:24px;color:darkblue'></i></a>
             <a href="../User/DeletePost.php?Post_ID=<?=$rows['Post_ID']?>"><i class='far fa-trash-alt' style='font-size:24px;color:red'></i></a>
             </td></tr>
