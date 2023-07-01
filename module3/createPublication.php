@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <b>Share research by uploading it to your profile</b>
   </div>
 
-  <form action="CreatePublication.php" method="POST">
+  <form action="createPublication.php" method="POST">
     <div class="form-container">
       <div style="margin-left:260px;margin-top:20px">
         <p><b>Expert: </b><?php echo $expert_name; ?></p>
