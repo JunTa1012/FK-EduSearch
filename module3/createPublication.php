@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Database connection settings
-include("link/dbconnection.php");
+include("./link/dbconnection.php");
 include '../module1/sessionExpert.php';
 date_default_timezone_set('Asia/Kuala_Lumpur');
 $publicationDate = date('Y-m-d'); // Get the current date
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <form action="CreatePublication.php" method="POST">
     <div class="form-container">
       <div style="margin-left:260px;margin-top:20px">
-        <p><b>Expert: Abby</b></p>
+        <p><b>Expert: </b><?php echo $expert_name; ?></p>
         <label for="publicationDate"><b>Date: <?php echo date('Y-m-d'); ?></b></label><br>
         <span><img style="width:120px; height:auto" src="image/document.png" alt="document"></span>
       </div>
