@@ -1,8 +1,15 @@
 <?php
 include("../dbconnect.php");
 session_start();
-include_once '../module1/sessionAdmin.php';
+include_once '../module1/sessionUser.php';
+
+if(!empty($_SESSION["id"])){
+  $id = $_SESSION["id"];
+  $result = mysqli_query($conn, "SELECT * FROM user WHERE User_ID = '$id'");
+  $row = mysqli_fetch_assoc($result);
+}
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -284,7 +291,7 @@ NAVIGRATINO BAR
          <!-- navigation bar (left side) -->
          <nav id="nav-bar">
             <ul>
-                <li><a class="nav-link" href="#">Home</a></li>
+                <li><a class="nav-link" href="../User/UserHomepage.php">Home</a></li>
                 <li><a class="nav-link active" href="../User/UserAccountProfile.php">Account Profile</a></li>
                 <li><a class="nav-link" href="../User/DiscussionBoard.php">Discussion Board</a></li>
                 <li><a class="nav-link" href="../Complaint/UserComplaint.php">Complaint</a></li>
@@ -297,14 +304,19 @@ NAVIGRATINO BAR
          <!-- main content (right side) -->
         <div class="column main-content">
             <table class="UserTable" >
+            <?php 
+            $select = mysqli_query($conn, "SELECT * FROM `user` WHERE User_ID ='$id' ")
+            or die('query failed');
+            if(mysqli_num_rows($select) > 0){
+              $fetch = mysqli_fetch_assoc($select);
+            }
+            ?>
                 <tr>
                 <td rowspan="4">
                     <img src="../Assets/userPic.png" width="120px" height="120px" style="padding-top:10px;">
                 </td>
                 <th>
-                    <a class="UserName">  Yan Jie Ying</a>
-                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;
-                     U000001
+                    <a class="UserName">  <?php echo $fetch['user_name'] ?> </a>
                 </th>
                 <td rowspan="2" style="width:300px" >
                 <button class="ViewEditStatusBtn" onclick = "window.location.href='ViewEditStatus.php';"><strong>View Edit Status</strong></button></td>
@@ -314,7 +326,7 @@ NAVIGRATINO BAR
                 <td> University of Malaysia Pahang | Department of Computing</td>
                 </tr>
                 <tr>
-                <td>yanjieying@gmail.com &nbsp; <a>+ 0165365369</a></td>
+                <td><?php echo $fetch['user_email'] ?> &nbsp; <a>+ <?php echo $fetch['user_phoneNum'] ?></a></td>
             <td rowspan="2" style="width:300px"><button class="EditProfileBtn" onclick = "window.location.href='../User/EditProfile.php';"><strong>Edit Profile</strong></button></td>
                 </tr>
                 <tr> 
@@ -328,9 +340,9 @@ NAVIGRATINO BAR
             <br>
             <div class="UserDetails">
             <table class="UserDetailsTable">
-                <tr><th class="UserDetailsTableTh">Current Academic Status</th> <td class="UserDetailsTable" >Degree In Computer Science</td></tr>
-                <tr><th class="UserDetailsTableTh">Research Area</th><td class="UserDetailsTable">Software Engineering</td></tr>
-                <tr><th class="UserDetailsTableTh">Social Media Account</th><td class="UserDetailsTable" ><a href="#" class="fa fa-facebook"></a> Facebook: Jie Ying Yan</td></tr>
+                <tr><th class="UserDetailsTableTh">Current Academic Status</th> <td class="UserDetailsTable" ><?php echo $fetch['user_academicStatus'] ?></td></tr>
+                <tr><th class="UserDetailsTableTh">Research Area</th><td class="UserDetailsTable"><?php echo $fetch['user_researchArea'] ?></td></tr>
+                <tr><th class="UserDetailsTableTh">Social Media Account</th><td class="UserDetailsTable" ><a href="#" class="fa fa-facebook"></a> <?php echo $fetch['user_socialMediaAcc'] ?></td></tr>
             </table>
             </div>
             <br>

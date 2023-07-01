@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+<!--- This php is to let user to UPDATE the post details -->
+<!---Contain CRUD-Update-->
 <?php 
 include '../dbconnect.php'; 
  
@@ -6,7 +7,7 @@ include '../dbconnect.php';
 // Check if a post ID is provided 
 if (isset($_GET['Post_ID'])) { 
   $Post_ID = $_GET['Post_ID']; 
-  // Retrieve the publication details from the database 
+  // Retrieve the post details from the database 
   $sql = "SELECT * FROM post WHERE Post_ID = $Post_ID"; 
   $result = $conn->query($sql);  
  
@@ -38,11 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $updatedPostTime = mysqli_real_escape_string($conn,$_POST['postTime']);
   $updatedPostComment =  mysqli_real_escape_string($conn, $_POST['postComment']);
  
-  // Update the publication in the database 
+  // Update the post in the database 
   $updateSql = "UPDATE post SET post_title= '$updatedPostTitle',post_content= '$updatedPostContent',post_keyword= '$updatedPostKeyword', post_category= '$updatedPostCategory',post_date = '$updatedPostDate', post_time = '$updatedPostTime',post_comment = '$updatedPostComment' WHERE Post_ID = $Post_ID"; 
   if ($conn->query($updateSql) === true) { 
-    echo "Post updated successfully."; 
-    header("Location: ../User/DiscussionBoard.php"); 
+    echo '<script type="text/javascript">';
+              echo 'alert("Post Updated Successfully.")';
+              echo '</script>'; 
+    header("refresh:1;url=  ../User/DiscussionBoard.php"); 
     // You can redirect the user to a different page or display a success message here 
   } else { 
     echo "Error updating post: "; 
@@ -53,13 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
 $conn->close(); 
 ?> 
-=======
 <?php
 include("../dbconnect.php");
 session_start();
-include_once '../module1/sessionAdmin.php';
+include_once '../module1/sessionUser.php';
 ?>
->>>>>>> 6cff52b188c20bffff7d1f4e0852086689d77e5b
 <!DOCTYPE html>
 <html>
     <head>

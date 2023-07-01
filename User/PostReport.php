@@ -1,8 +1,13 @@
 <?php
 include("../dbconnect.php");
 session_start();
-include_once '../module1/sessionAdmin.php';
+include_once '../module1/sessionUser.php';
+
+
 ?>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,6 +16,10 @@ include_once '../module1/sessionAdmin.php';
         <title>FK-EduSearch | Knowledge Sharing System</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/06b2bd9377.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="../../js/calculate-average-expenses/chart.js"></script>
        <style>
          * {
     margin: 0;
@@ -92,7 +101,7 @@ NAVIGRATINO BAR
     width: 200px;
     padding-top: 30px;
     padding-left: 0px;
-    padding-bottom: 13px;
+    padding-bottom: 113px;
 
   }
   .nav-link {
@@ -136,7 +145,9 @@ NAVIGRATINO BAR
   }
   .main-content{
   background-color: white;
-  width: 84%;
+  width: 82%;
+  
+  
 
 }
 
@@ -156,6 +167,21 @@ input[type=button]{
     margin: 7px 120px;
 }
 
+.report{
+  width:80%;
+  height:80%;
+  position:absolute;
+  padding-top: 0px;
+  padding-left: 250px;
+
+}
+
+.QRCode-section{
+  position:absolute;
+  padding-top: 100px;
+  padding-left: 1100px;
+ 
+}
         </style>
     </head>
 
@@ -201,154 +227,88 @@ input[type=button]{
             </ul>
         </nav>
         </div>
+
          <!-- main content (right side) -->
         <div id="column main-content">
+        <a href="../User/UserHomePage.php">&laquo; Home</a><br><br>
+          <strong>Group By: Month </strong> 
 
-          <strong>Group By: </strong> 
-          <button type ="submit" name="Submit" value="Week" class= "button">Week</button>
-          <button type ="submit" name="Submit" value="Month" class= "button">Month</button>
+        
+
+      <div class="report">
+        <canvas id="chart" class="chart"></canvas>
+      
+        </div>
+     
+      <div class="QRCode-section">
+          <div class="QR-background">
+            <div id="QRCode"></div>
          
-          <?php
-          include '../dbconnect.php';
+          <h4>Scan QR Code to view on phone in table form.</h4>
+          </div>
+      <?php
+      $query = "SELECT MONTHNAME(post_date) AS month, count(Post_ID) AS sum FROM post GROUP BY MONTH(post_date)";
+      $result = mysqli_query($conn, $query);
+      $num_row = mysqli_num_rows($result);
+      $month = array();
+      $sum = array();
+      for ($i = 0; $i < $num_row; $i++) {
+        while ($row = mysqli_fetch_array($result, 1)) {
+          array_push($month, $row['month']);
+          array_push($sum, $row['sum']);
+        }
+      }
+      $sum_assoc = array_combine($month, $sum);
 
-          $sql = "SELECT COUNT(post_ID), WEEK(post_date) FROM post GROUP BY WEEK(post_date)";
-            $sql2 = "SELECT COUNT(post_ID), MONTHNAME(post_date), FROM post GROUP BY MONTHNAME(post_date)";
-           
-            $result = mysqli_query($conn, $sql);
-            $result2 = mysqli_query($conn, $sql2);
-            $num_row = mysqli_num_rows($result);
-            $num_row2 = mysqli_num_rows($result2);
+      ?>
+    </div>
+  </div>
+  </div>
+  <script type="text/javascript">
+    var xValues = <?php echo json_encode($month) ?>;
+    var yValues = <?php echo json_encode($sum) ?>;
+    var barColors = "#0398fc ";
+    var year = new Date().getFullYear();
+
+    new Chart("chart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues,
+        }]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: "Total Post of Each Month in year " + year
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
     
-           
-             $week = array();
-             $totalPost = array();
-           
-             $month = array();
-             $totalPost = array();
-           
-             
-        //weekly commission bar graph 
-             for($i=0; $i<$num_row; $i++){
-                            while($row = mysqli_fetch_array($result, 1)) 
-                            {
-                            
-                                array_push($week, $row['WEEK(post_date)']);
-                                array_push($totalPost, $row['COUNT(post_ID)']);
 
-                            }
-                    } 
-            //monthly commission bar graph 
-            for($x=0; $x<$num_row2; $x++){
-                        while($row = mysqli_fetch_array($result2, 1)) 
-                        {
-                        
-                            array_push($month, $row['MONTHNAME(post_date)']);
-                            array_push($totalPost, $row['COUNT(post_ID)']);
-
-                        }
-                } 
-        
-                    ?>
-                    <div id="graph">
-                        <div>
-                            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-                        </div>
-                          <div id="second">
-                              <canvas id="myChart2" style="width:100%;max-width:600px"></canvas> 
-                          </div>
-                         
-                        
-                    </div>
-        </div>
-        </div>
-        
-        <script type="text/javascript">
-    var xValues = <?php echo json_encode($week);?>;
-    var yValues = <?php echo json_encode($totalPost);?>;
-    var barColors = "#6C5A8A";
-
-    new Chart("myChart", {
-  
-        type: "bar",
-        data: {
-            labels:xValues,
-            datasets: [{
-                backgroundColor: blue,
-                data: yValues,
-            }]
-        },
-        options: {
-            legend: {display: false},
-            title: {
-                display: true,
-                text: "Your Weekly Post is "
-            },
-            scales: {
-                yAxes: [{
-                ticks: {beginAtZero: true},
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: "Post",
-                }
-            }],
-            
-            xAxes: [{
-                scaleLabel: {
-                    display: true,
-                    labelString: "Week",
-                }
-                }],
-            
-            } 
-            }
+    var qrcode = new QRCode(document.getElementById("QRCode"), {
+      text: "<?php foreach ($sum_assoc as $month => $sum) {echo $month . ' : ' . $sum . '\r\n';} ?>",
+      width: 128,
+      height: 128,
+      colorDark: "#011726",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
     });
-</script>
-<script type="text/javascript">
-    var xValues = <?php echo json_encode($month);?>;
-    var yValues = <?php echo json_encode($totalPost);?>;
-    var barColors = "#6C5A8A";
-
-    new Chart("myChart2", {
-
-        type: "bar",
-        data: {
-            labels:xValues,
-            datasets: [{
-                backgroundColor: blue,
-                data: yValues,
-            }]
-        },
-        options: {
-            legend: {display: false},
-            title: {
-                display: true,
-                text: "Your Monthly Post is"
-            },
-            scales: {
-                yAxes: [{
-                ticks: {beginAtZero: true},
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: "Post",
-                }
-            }],
-            
-            xAxes: [{
-                scaleLabel: {
-                    display: true,
-                    labelString: "Month",
-                }
-                }],
-            
-            } 
-            }
-    });
-</script>
-
-        </div>
-
+  </script>
 
 </body>
+
 </html>
