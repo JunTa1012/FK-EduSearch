@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:8111
--- Generation Time: Jun 20, 2023 at 08:00 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jun 21, 2023 at 01:42 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fkedudb`
+-- Database: `fk`
 --
 
 -- --------------------------------------------------------
@@ -121,8 +121,6 @@ CREATE TABLE `discussionboard` (
   `Discussion_ID` varchar(7) NOT NULL,
   `post_status` varchar(10) NOT NULL,
   `post_duration` time NOT NULL,
-  `expert_answer` varchar(500) NOT NULL,
-  `expert_publication` varchar(500) NOT NULL,
   `Admin_ID` varchar(7) NOT NULL,
   `Post_ID` varchar(7) NOT NULL,
   `Expert_ID` varchar(7) NOT NULL
@@ -156,7 +154,7 @@ CREATE TABLE `expert` (
 --
 
 INSERT INTO `expert` (`Expert_ID`, `expert_password`, `expert_name`, `expert_email`, `expert_phoneNum`, `expert_status`, `expert_researchArea1`, `expert_researchArea2`, `expert_researchArea3`, `expert_academicStatus`, `expert_socialAcc1`, `expert_socialAcc2`, `expert_CV`, `Admin_ID`) VALUES
-(1, '123', 'Abby Luna', 'abbyoxide01@gmail.com', '  01161569195', 'active', ' Web Engineering', ' Big Data Analysis', ' AI', 'Phd in Computer Science, University Malaya', 'Abby Luna', 'abbyoxide', 0x43562e706466, 1);
+(1, '123', 'Abby Luna', 'abbyoxide01@gmail.com', '     01161569195', 'active', '    Web Engineering', '    Big Data Analysis', '    AI', 'Phd in Computer Science, University Malaya', 'Abby Luna', 'abbyoxide', 0x43562e706466, 1);
 
 -- --------------------------------------------------------
 
@@ -168,16 +166,15 @@ CREATE TABLE `post` (
   `Post_ID` varchar(7) NOT NULL,
   `post_title` varchar(100) NOT NULL,
   `post_content` varchar(500) NOT NULL,
-  `post_keyword` varchar(20) NOT NULL,
-  `post_category` varchar(7) NOT NULL,
+  `post_keyword` varchar(100) NOT NULL,
+  `post_category` varchar(100) NOT NULL,
   `post_date` date NOT NULL,
   `post_time` time NOT NULL,
   `post_comment` varchar(100) NOT NULL,
   `user_rating` float NOT NULL,
   `user_feedback` varchar(100) NOT NULL,
   `postStatus` varchar(20) NOT NULL,
-  `expertAnswer` varchar(100) NOT NULL,
-  `post_timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `expertAnswer` varchar(100) DEFAULT NULL,
   `Expert_ID` int(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -185,14 +182,14 @@ CREATE TABLE `post` (
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`Post_ID`, `post_title`, `post_content`, `post_keyword`, `post_category`, `post_date`, `post_time`, `post_comment`, `user_rating`, `user_feedback`, `postStatus`, `expertAnswer`, `post_timestamp`, `Expert_ID`) VALUES
-('1', 'What algorithms are used in Generative Design Software?', 'Dear all, I am wrting a research paper on Topology optimization and Generative design in Enginerring. Once it comes to Generative design and its use in Autodesk fusion 360, CATIA, or Ansys I cannot find any literature about the used algorithms to generate GD solutions.', 'dataset', 'Softwar', '2023-06-18', '00:00:00', 'Please give me the answers in details, thank you so much', 0, '', 'Completed', '', '2023-06-20 04:30:04', 1),
-('2', 'Open source CFD code to start?', 'Hello everyone. I am planning to start working with open source CFD codes (in Windows, in principle). I am thinking of #OpenFoam or #SU2.', 'CFD coding', 'Graphic', '2023-06-19', '10:00:00', 'Up.', 0, '', 'Completed', '', '2023-06-20 02:51:32', 1),
-('3', 'How Can I Search for The Dataset Used for My Research?', 'How Can I Search for The Dataset Used for My Research? I hope someone can tell me.', 'dataset', 'Artific', '2023-03-20', '09:00:00', 'Nice question.', 0, '', 'Completed', '', '2023-06-20 03:03:56', 1),
-('4', 'Isn’t Dataset for Dyscalculia Rate in Malaysia Is Suitable for My Research?', 'Isn’t Dataset for Dyscalculia Rate in Malaysia Is Suitable for My Research? I have do some many information review and searching for many reference...', 'dyscalculia', 'Human C', '2023-02-20', '09:00:00', 'Up.Follow.', 0, '', 'Completed', '', '2023-06-20 02:59:30', 1),
-('5', 'Question About Machine Learning', 'Can You Give Me Some Previous Research Resources\r\nRelated to the Topic of Machine Learning?', 'Artificial Intellige', 'Artific', '2023-01-20', '21:00:00', '', 0, '', 'Completed', '', '2023-06-20 03:01:05', 1),
-('6', 'Is my research topic suitable if I choose to \r\ndo networking?', 'Is my research topic suitable if I choose to \r\ndo networking? Any suggestions?', 'Systems and Networki', 'Systems', '2023-03-23', '09:10:00', 'I want to know too the extra journal reference.', 0, '', 'Completed', '', '2023-06-20 03:03:20', 1),
-('7', 'Are any applications of multimedia suitable for me to do the research?', 'Are any applications of multimedia suitable for me to do the research?', 'Graphic And  Multime', 'Graphic', '2023-02-20', '09:30:00', 'I think can use the Adobe Editor. Am I right?', 0, '', 'Completed', '', '2023-06-20 03:09:36', 1);
+INSERT INTO `post` (`Post_ID`, `post_title`, `post_content`, `post_keyword`, `post_category`, `post_date`, `post_time`, `post_comment`, `user_rating`, `user_feedback`, `postStatus`, `expertAnswer`, `Expert_ID`) VALUES
+('1', 'What algorithms are used in Generative Design Software?', 'Dear all, I am wrting a research paper on Topology optimization and Generative design in Enginerring. Once it comes to Generative design and its use in Autodesk fusion 360, CATIA, or Ansys I cannot find any literature about the used algorithms to generate GD solutions.', 'dataset', 'Software Engineering', '2023-06-18', '00:00:00', 'Please give me the answers in details, thank you so much', 0, '', 'Not accept yet', '...', 1),
+('2', 'Open source CFD code to start?', 'Hello everyone. I am planning to start working with open source CFD codes (in Windows, in principle). I am thinking of #OpenFoam or #SU2.', 'CFD coding', 'Graphic And Multimedia', '2023-06-19', '10:00:00', 'Up.', 0, '', 'Not accept yet', '...', 1),
+('3', 'How Can I Search for The Dataset Used for My Research?', 'How Can I Search for The Dataset Used for My Research? I hope someone can tell me.', 'dataset', 'Artificial Intelligence and Machine Learning', '2023-03-20', '09:00:00', 'Nice question.', 0, '', 'Not accept yet', '...', 1),
+('4', 'Isn’t Dataset for Dyscalculia Rate in Malaysia Is Suitable for My Research?', 'Isn’t Dataset for Dyscalculia Rate in Malaysia Is Suitable for My Research? I have do some many information review and searching for many reference...', 'dyscalculia', 'Human Computer Interaction', '2023-02-20', '09:00:00', 'Up.Follow.', 0, '', 'Not accept yet', '', 1),
+('5', 'Question About Machine Learning', 'Can You Give Me Some Previous Research Resources\r\nRelated to the Topic of Machine Learning?', 'Artificial Intelligent', 'Artificial Intelligence and Machine Learning', '2023-01-20', '21:00:00', '', 0, '', 'Not accept yet', '', 1),
+('6', 'Is my research topic suitable if I choose to \r\ndo networking?', 'Is my research topic suitable if I choose to \r\ndo networking? Any suggestions?', 'Systems and Networki', 'Systems And Networking', '2023-03-23', '09:10:00', 'I want to know too the extra journal reference.', 0, '', 'Not accept yet', '', 1),
+('7', 'Are any applications of multimedia suitable for me to do the research?', 'Are any applications of multimedia suitable for me to do the research?', 'Graphic And Multimedia', 'Graphic And Multimedia', '2023-02-20', '09:30:00', 'I think can use the Adobe Editor. Am I right?', 0, '', 'Not accept yet', '', 1);
 
 -- --------------------------------------------------------
 
@@ -236,25 +233,13 @@ CREATE TABLE `publication_list` (
 --
 
 INSERT INTO `publication_list` (`Publication_ID`, `publication_date`, `publication_topic`, `publication_author`, `publication_description`, `publication_content`, `publication_type`, `total_amount`, `Admin_ID`, `Expert_ID`) VALUES
-(1, '2023-05-22', 'Web Engineering', 'Abby', 'The tips to score A in subject Web Engineering of computer science...', 'Be patient !!!!', 'Article', 0, 1, 1),
-(14, '2023-06-13', 'DSA', 'abby', 'DSA SO FUN', 'gogogo learn', 'Jornal', 0, 1, 1),
-(15, '2023-06-14', 'web project', 'abby', 'susah la !!!!!', 'Please jadi baik baik la awak', 'Syllabus', 0, 1, 1),
-(16, '2023-06-18', 'operating system', 'abby', 'apa itu os', 'os tu bukan os', 'Thesis', 0, 1, 1),
-(17, '2023-06-18', 'DSA', 'dsfsf', 'hi aa', 'hiaa', 'Syllabus', 0, 1, 1),
+(1, '2023-04-01', 'Web Engineering', 'Abby', 'The tips to score A in subject Web Engineering of computer science...', 'Be patient !!!!', 'Article', 0, 1, 1),
+(14, '2023-04-12', 'DSA', 'abby', 'DSA SO FUN', 'gogogo learn', 'Jornal', 0, 1, 1),
+(15, '2023-05-04', 'web project', 'abby', 'susah la !!!!!', 'Please jadi baik baik la awak', 'Syllabus', 0, 1, 1),
+(16, '2023-05-13', 'operating system', 'abby', 'apa itu os', 'os tu bukan os', 'Thesis', 0, 1, 1),
+(17, '2023-05-17', 'DSA', 'abby', 'hi aa', 'hiaa', 'Syllabus', 0, 1, 1),
 (18, '2023-06-17', 'Software Security', 'abby', 'Security is important!!!!!!!!', 'How to do.............', 'Thesis', 0, 1, 1),
-(19, '2023-06-19', 'Dwww', 'abbywwww', 'aaaswww', 'aaaaww', 'Syllabus', 0, 1, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `publication_report`
---
-
-CREATE TABLE `publication_report` (
-  `PR_ID` int(11) NOT NULL,
-  `totalPublication` int(11) NOT NULL,
-  `Publication_ID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(19, '2023-06-19', 'Dwww', 'abby', 'aaaswww', 'aaaaww', 'Syllabus', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -397,13 +382,6 @@ ALTER TABLE `publication_list`
   ADD KEY `Expert_ID` (`Expert_ID`);
 
 --
--- Indexes for table `publication_report`
---
-ALTER TABLE `publication_report`
-  ADD PRIMARY KEY (`PR_ID`),
-  ADD KEY `Publication_ID` (`Publication_ID`);
-
---
 -- Indexes for table `rating_report`
 --
 ALTER TABLE `rating_report`
@@ -459,12 +437,6 @@ ALTER TABLE `publication_list`
   MODIFY `Publication_ID` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `publication_report`
---
-ALTER TABLE `publication_report`
-  MODIFY `PR_ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- Constraints for dumped tables
 --
 
@@ -492,12 +464,6 @@ ALTER TABLE `post`
 --
 ALTER TABLE `publication_list`
   ADD CONSTRAINT `publication_list_ibfk_1` FOREIGN KEY (`Expert_ID`) REFERENCES `expert` (`Expert_ID`);
-
---
--- Constraints for table `publication_report`
---
-ALTER TABLE `publication_report`
-  ADD CONSTRAINT `publication_report_ibfk_1` FOREIGN KEY (`Publication_ID`) REFERENCES `publication_list` (`Publication_ID`);
 
 --
 -- Constraints for table `report_list`

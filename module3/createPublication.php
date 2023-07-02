@@ -16,11 +16,11 @@ $expert_name = $row['expert_name'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Get form data
-  $publicationTopic = mysqli_real_escape_string($conn, $_POST['publicationTopic']);
-  $publicationAuthor = mysqli_real_escape_string($conn, $_POST['publicationAuthor']);
-  $publicationType = mysqli_real_escape_string($conn, $_POST['publicationType']);
-  $publicationDescription = mysqli_real_escape_string($conn, $_POST['publicationDescription']);
-  $publicationContent = mysqli_real_escape_string($conn, $_POST['publicationContent']);
+  $publicationTopic = mysqli_real_escape_string($conn, $_POST['publication_topic']);
+  $publicationAuthor = mysqli_real_escape_string($conn, $_POST['publication_author']);
+  $publicationType = mysqli_real_escape_string($conn, $_POST['publication_type']);
+  $publicationDescription = mysqli_real_escape_string($conn, $_POST['publication_description']);
+  $publicationContent = mysqli_real_escape_string($conn, $_POST['publication_content']);
   $expertid = "1";
   $adminid = "1";
   $sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.expert_ID WHERE pl.Expert_ID = $expertid";
@@ -89,20 +89,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-container">
       <div style="margin-left:260px;margin-top:20px">
         <p><b>Expert: </b><?php echo $expert_name; ?></p>
-        <label for="publicationDate"><b>Date: <?php echo date('Y-m-d'); ?></b></label><br>
+        <label for="publication_date"><b>Date: <?php echo date('Y-m-d'); ?></b></label><br>
         <span><img style="width:120px; height:auto" src="image/document.png" alt="document"></span>
       </div>
 
 
       <div class="right-side">
-        <label for="publicationTopic">Topic :</label>
-        <input type="text" id="publicationTopic" name="publicationTopic">
+        <label for="publication_topic">Topic :</label>
+        <input type="text" id="publication_topic" name="publication_topic">
 
-        <label for="publicationAuthor">Author :</label>
-        <input type="text" id="publicationAuthor" name="publicationAuthor">
+        <label for="publication_author">Author :</label>
+        <input type="text" id="publication_author" name="publication_author">
 
-        <label for="publicationType">Type of Publication :</label>
-        <select id="publicationType" name="publicationType">
+        <label for="publication_type">Type of Publication :</label>
+        <select id="publication_type" name="publication_type">
           <option selected disabled>Choose the type of publication</option>
           <option value="Publication Paper">Publication Paper</option>
           <option value="Syllabus">Syllabus</option>
@@ -111,11 +111,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <option value="Article">Article</option>
         </select>
         <br>
-        <label for="publicationDescription">Description :</label>
-        <textarea name="publicationDescription" rows="5" cols="40" placeholder="Write a description of the publication" required></textarea>
+        <label for="publication_description">Description :</label>
+        <textarea name="publication_description" rows="5" cols="40" placeholder="Write a description of the publication" required></textarea>
 
-        <label for="publicationContent">Content :</label>
-        <textarea name="publicationContent" rows="5" cols="40" placeholder="Write the content" required></textarea>
+        <label for="publication_content ">Content :</label>
+        <textarea name="publication_content" rows="5" cols="40" placeholder="Write the content" required></textarea>
 
         <button style="margin-left: 92%;border: none;background-color:#D2B6D2;" class="custom-btn" type="submit">Add</button><br>
         <a href="publication.php"><button style="margin-left: 92%;border: none;background-color:#D2B6D2;" class="custom-btn">Cancel</button></a>
