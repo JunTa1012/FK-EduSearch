@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Database connection settings
-include("link/dbconnection.php");
+include("./link/dbconnection.php");
 include '../module1/sessionExpert.php';
 $expertid = 1;
 $sql = "SELECT pl.*, e.expert_name FROM publication_list AS pl JOIN expert AS e ON pl.Expert_ID = e.Expert_ID WHERE pl.Expert_ID = $expertid";
